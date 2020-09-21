@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/pdf.lib.sh
+
+pdf_verify() {
+    __check_binary__ qpdf || return 1
+    __check_no_args__ "${@}" || {
+        echo "usage: $ $(basename ${0}) <input1.pdf input2.pdf ...>"
+        return 1
+    }
+
+    pdfs=("${@}")
+    __check_files_exist__ "${pdfs[@]}" || return 1
+
+    local q=""
+
+    local pdfs=("${@}")
+    for pdf in "${pdfs[@]}"; do
+        qpdf --check "${pdf}" &> /dev/null && {
+            echo "notice: nothing to fix for \"${pdf}\""
+        } || {
+            q+="[warning]"$'\n'
+            q+="Invalid PDF: \"${pdf}\""$'\n'
+            q+="This overwrites the current PDF."$'\n'
+            q+="Information bookmark, outline and metadata will be lost."$'\n'
+            q+="Proceed [Yy/Nn] ? "
+            __question__ "${q}" && {
+                qpdf --replace-input --no-warn "${pdf}"
+            }
+        }
+    done
+}
+
+pdf_verify "${@}"
+

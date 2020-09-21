@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/core.lib.sh
+
+cpaste() {
+    __check_binary__ xclip || return 1
+    xclip -selection clipboard -o
+}
+
+cpaste ${@}
+

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/img.lib.sh
+
+__img_info() {
+    __check_binary__ file || return 1
+    if [ $# -eq 0 ]; then
+        echo "fatal: no arguments supplied"
+        echo "    usage: $ $(basename ${0}) <*images>/<list of images>"
+        return 1
+    fi
+
+    local images=("${@}")
+    __check_img__ ${images} || return 1
+
+    file ${images[@]}
+}
+
+__img_info ${@}
+

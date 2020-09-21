@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+# spinner.sh
+#
+# Also see: test.sh
+
+###############################################################################
+#                                  constants                                  #
+###############################################################################
+
+CL="\e[2K"
+SPINNER="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+DELAY=0.05
+
+###############################################################################
+#                                    utils                                    #
+###############################################################################
+
+__ctrl_c() {
+    tput cnorm && stty echo
+}
+
+
+_spinner() {
+    # $1 start/stop
+    #
+    # on start: $2 display message
+    # on stop : $2 process exit status
+    #           $3 spinner pid (supplied from stop_spinner)
+
+    local on_success="DONE"
+    local on_fail="FAIL"
+    local white="\e[1;37m"
+    local green="\e[1;32m"
+    local red="\e[1;31m"
+    local nc="\e[0m"
+
+    case $1 in
+        start)
+            # calculate the column where spinner and status msg will be displayed
+            let column=$(tput cols)-${#2}-5
+            # display message and position the cursor in $column column
+            echo -ne ${2}
+            printf "%${column}s"
+
+            # start spinner
+            i=1
+
+            while :
+            do
+                printf "\b${SPINNER:i++%${#SPINNER}:1}"
+                sleep ${DELAY}
+            done
+            ;;
+        stop)
+            if [[ -z ${3} ]]; then
+                echo "spinner is not running.."
+                exit 1
+            fi
+
+            kill $3 > /dev/null 2>&1
+
+            # inform the user uppon success or failure
+            echo -en "\b["
+            [[ $2 -eq 0 ]] &&
+                echo -en "${green}${on_success}${nc}" ||
+                echo -en "${red}${on_fail}${nc}"
+            echo -e "]"
+            ;;
+        *)
+            echo "invalid argument, try {start/stop}"
+            exit 1
+            ;;
+    esac
+}
+
+_start_spinner {
+    stty -echo && tput civis
+    # $1 : msg to display
+    _spinner "start" "${1}" &
+    # set global spinner pid
+    _sp_pid=$!
+    disown
+}
+
+_stop_spinner {
+    # $1 : command exit status
+    _spinner "stop" $1 $_sp_pid
+    unset _sp_pid
+    tput cnorm && stty echo
+}
+
+###############################################################################
+#                                     API                                     #
+###############################################################################
+
+spinner() {
+    trap __ctrl_c INT
+    _start_spinner "running: ${@}"
+    tput civis
+    "${@}"
+    _stop_spinner $?
+}
+
+__spinner() {
+    trap __ctrl_c INT
+    stty -echo && tput civis
+    i=1
+    task=${1}
+    msg=${2}
+    while :; do
+        jobs %1 > /dev/null 2>&1
+        [ $? = 0 ] || {
+            printf "${CL}✓ ${task} done\n"
+            break
+        }
+        sleep ${DELAY}
+        printf "\b${CL}${SPINNER:i++%${#SPINNER}:1} ${task} ${msg}\r"
+    done
+    tput cnorm && stty echo
+}

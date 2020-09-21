@@ -1,0 +1,20 @@
+# Don't let ripgrep vomit really long lines to my terminal.
+--max-columns=200
+--smart-case
+--line-number
+--hidden
+
+# Add my 'specific' type.
+--type-add
+dts:*.{dts,dtsi}
+--type-add
+vcproj:*.vcproj
+--type-add
+rc:*.rc
+
+# Set the colors.
+--colors=match:fg:black
+--colors=match:bg:yellow
+--colors=line:fg:red
+--colors=path:fg:blue
+

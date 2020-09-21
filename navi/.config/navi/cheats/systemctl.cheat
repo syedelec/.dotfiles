@@ -1,0 +1,11 @@
+% systemctl, service
+
+# list running services
+systemctl list-units -t service --state=running
+
+# list enabled services
+systemctl list-unit-files -t service --state=enabled
+
+# list disabled services
+systemctl list-unit-files -t service --state=disabled
+

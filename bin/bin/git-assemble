@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+assemble() {
+    __is_git_repo__ || return 1
+    current_branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    branch=${1:-${current_branch}}
+    git rev-parse --verify ${branch} &> /dev/null || {
+        echo "fatal: branch '${branch}' does not exist"
+        return 1
+    }
+
+    archive_name=$(basename $(git root))
+    version=$(git describe --always --long ${branch} 2> /dev/null)
+
+    filename=${archive_name}.${version}.${branch}.zip
+
+    git -C $(git root) archive --format=zip --prefix=${archive_name}/         \
+                               -o ${filename} ${branch}
+}
+
+assemble ${@}
+

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/net.lib.sh
+
+
+wifi_connect() {
+    __check_binary__ nmcli fzf || return 1
+
+    local network=""
+
+    __enable_wifi
+
+    network=$(nmcli --color yes device wifi list --rescan auto |
+              fzf --ansi --header-lines=1)
+    [ -z "${network}" ] && return 1
+    network=$(sed -r 's/^\s*\*?\s*//; s/\s*(Ad-Hoc|Infra).*//' <<< "${network}")
+
+    # verify valid network
+    [ "${network}" = "--" ] && {
+        echo "fatal: invalid network selected"
+        return 1
+    }
+
+    echo "note: connecting to '${network}' ..."
+    nmcli -a device wifi connect "${network}"
+}
+
+wifi_connect ${@}

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+usage() {
+    echo "Usage: $(basename ${0}) <old remote> <new remote>"
+    exit 1
+}
+
+mirror() {
+    local old_url="${1}"
+    local new_url="${2}"
+
+    local folder="${old_url##*/}"
+
+    git clone --recursive --bare "${old_url}" "${folder}" &> /dev/null
+    cd "${folder}"
+    git push --mirror "${new_url}" &> /dev/null
+    cd ../
+    echo "success: mirror ${old_url} to ${new_url}"
+}
+
+if [[ $# -ne 2 ]]; then
+    echo "fatal: need to sypply old and new remote"
+    usage
+fi
+
+mirror ${@}
+

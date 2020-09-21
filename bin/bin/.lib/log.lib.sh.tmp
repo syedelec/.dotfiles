@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+RESET="0m"
+BLACK="30m"
+ROUGE="31m"
+GREEN="32m"
+YELLW="33m"
+BLUEE="34m"
+CYANN="36m"
+
+RST="\033[${RESET}"
+RED="\033[${ROUGE}"
+GRN="\033[${GREEN}"
+YEL="\033[${YELLW}"
+BLU="\033[${BLUEE}"
+CYN="\033[${CYANN}"
+
+UNDERLINE="\e[4m"
+
+#
+# Headers and  Logging
+#
+
+header() {
+    printf "\n${WHT}==========  %s  ==========${RST}\n\n" "$@"
+}
+
+arrow() {
+    printf "${CYN}➜   [NOTE]   %s${RST}\n" "$@"
+}
+
+success() {
+    printf "${GRN}✓   [SUCC]   %s${RST}\n" "$@"
+}
+
+error() {
+    printf "${RED}⨯   [ERRR]   %s${RST}\n" "$@"
+}
+
+warn() {
+    printf "${YEL}⚠   [WARN]   %s${RST}\n" "$@"
+}
+
+underline() {
+    printf "${UNDERLINE}%s${RST}%s\n" "$1" "$2"
+}
+
+note() {
+    printf "${UNDERLINE}${BLU}Note:${RST}  ${BLU}%s${RST}\n" "$@"
+}
+
+log() {
+    printf "%s\n" "$@"
+}
+
+# header "I am a sample script"
+# arrow "I am an arrow"
+# success "I am a success message"
+# error "I am an error message"
+# warn "I am a warning message"
+# underline "I am underlined text"
+# note "I am a note"

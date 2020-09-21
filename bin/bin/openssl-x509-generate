@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/ssl.lib.sh
+
+
+__openssl_x509_generate() {
+    openssl_key_generate || return 1
+
+    declare -A CERTIFICATE=(
+                            [/C]="US"
+                            [/ST]="Washington"
+                            [/L]="Seattle"
+                            [/O]="Example Corp"
+                            [/OU]="Corporation"
+                            [/CN]="www.example.com"
+                            [/emailAddress]="corporation@example.com"
+                           )
+    local subj
+    local output
+
+    printf -v subj "%s" "/C=${CERTIFICATE[/C]}"                           \
+                        "/ST=${CERTIFICATE[/ST]}"                         \
+                        "/L=${CERTIFICATE[/L]}"                           \
+                        "/O=${CERTIFICATE[/O]}"                           \
+                        "/OU=${CERTIFICATE[/OU]}"                         \
+                        "/CN=${CERTIFICATE[/CN]}"                         \
+                        "/emailAddress=${CERTIFICATE[/emailAddress]}"
+
+    output="certificate"
+
+    read -r -p "Use default certificate informations [y/n] [y]: " answer
+    [[ -z "${answer}" ]] && answer="y"
+
+    if [ "${answer}" != "${answer#[Yy]}" ] ;then
+        echo "note: using default certificate information"
+        openssl req -key key.pem -new -x509 -out ${output}.pem -subj "${subj}"
+    else
+        openssl req -key key.pem -new -x509 -out ${output}.pem
+    fi
+
+    openssl x509 -inform pem -outform der -in ${output}.pem -out ${output}.der
+
+    echo "success: generated certificate pem and der format"
+    return 0
+}
+
+__openssl_x509_generate "${@}"
+

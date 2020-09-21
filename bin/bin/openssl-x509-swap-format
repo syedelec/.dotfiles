@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/ssl.lib.sh
+
+
+__openssl_x509_swap_format() {
+    __check_binary__ openssl || return 1
+    if [ $# -ne 1 ]; then
+        echo "fatal: wrong arguments provided"
+        echo "usage: $ $(basename ${0}) <cert.der/cert.pem>"
+        return 1
+    fi
+
+    local filename="$(basename "${1}")"
+    local name="${filename%.*}"
+    local extension="${filename##*.}"
+
+    cmd="openssl x509 -inform ${input} -in ${filename} -out ${filename}.${output}"
+
+    # case "${filename}" in
+    #     *.der)
+    #         echo "Converting file ${filename} to PEM format"
+    #         output="pem"
+    #         input="der"
+    #         ${cmd};;
+    #     *.pem)
+    #         echo "Converting file ${filename} to DER format"
+    #         output="der"
+    #         input="pem"
+    #         ${cmd};;
+    #     *)
+    #         echo "[FAIL] specify a valid extension certificate";;
+    # esac
+}
+
+__openssl_x509_swap_format "${@}"
+

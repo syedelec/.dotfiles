@@ -1,0 +1,74 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Devicetree
+file_extensions:
+  - dts
+  - dtsi
+scope: source.devicetree
+contexts:
+  main:
+    - match: /\*
+      comment: Multiline Comment
+      push:
+        - meta_scope: comment.block.devicetree
+        - match: \*/
+          pop: true
+    - match: \s*(//)
+      comment: One Line Comment
+      captures:
+        1: punctuation.definition.comment.line.double-slash.devicetree
+      push:
+        - meta_scope: comment.line.double-slash.devicetree
+        - match: (?<=$\n)(?<!\\$\n)
+          pop: true
+    - match: "^/dts-[a-z0-9]*/;$"
+      comment: Version I.D.
+      scope: support.constant.file-version.devicetree
+    - match: \#include (.*)
+      scope: keyword.standard.devicetree
+      captures:
+        1: string.quoted.double.devicetree
+    - match: '\#define\s([^\s]*)\s(.*)'
+      scope: keyword.standard.define.devicetree
+      captures:
+        1: entity.name.type.macro.name.devicetree
+        2: string.other.macro.value.devicetree
+    - match: '\b(?:([A-Za-z0-9]*):\s)?([A-Za-z0-9\_-]*)(\@)?([A-Za-z0-9\_-]*)\s*\{'
+      comment: Devicetree Node, page 43
+      scope: node.devicetree
+      captures:
+        1: storage.type.label.node.devicetree
+        2: entity.name.type.node-name.node.devicetree
+        3: keyword.operator.unit-address.node.devicetree
+        4: constant.numeric.unit-address.node.devicetree
+    - match: '((compatible|model|phandle|status|\#address-cells|\#size-cells|reg|virtual-reg|ranges|dma-ranges|device_type)|[\w,-]*)\s='
+      comment: Property Definition
+      captures:
+        1: variable.property-name.devicetree
+        2: variable.language.devicetree
+      push:
+        - meta_scope: property-definition.devicetree
+        - match: \;
+          pop: true
+        - include: quote
+        - include: macro-def
+        - include: numeric
+    - match: '((compatible|model|phandle|status|\#address-cells|\#size-cells|reg|virtual-reg|ranges|dma-ranges|device_type)|[\w,-]*)\;'
+      comment: "This is for property definitions with empty value. Example: ranges;"
+      scope: empty.property-defintion.devicetree
+      captures:
+        1: variable.property-name.devicetree
+        2: variable.language.devicetree
+  macro-def:
+    - match: '([\w_])*'
+      scope: constant.numeric.devicetree
+  numeric:
+    - match: ((0x)?\h*)
+      scope: constant.numeric.devicetree
+  quote:
+    - match: '"'
+      push:
+        - meta_scope: string.quoted.double.devicetree
+        - match: '"'
+          pop: true

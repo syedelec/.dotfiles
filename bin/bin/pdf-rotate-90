@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/pdf.lib.sh
+
+pdf_rotate_90() {
+    __pdf_rotate__ +90 "${@}" || echo "usage: $ $(basename ${0}) <input.pdf> [1 2 3 6-9]"
+}
+
+pdf_rotate_90 "${@}"

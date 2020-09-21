@@ -1,0 +1,15 @@
+# Files and folders ignored by rg/ag when searching
+# Uses same format as gitignore
+
+#############
+#  Folders  #
+#############
+
+.git
+.svn
+.hg
+.cache
+.idea
+node_modules
+__pycache__
+

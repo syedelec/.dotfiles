@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+amend_all() {
+    __is_git_repo__ || return 1
+    [ -n "$(git status -s)" ] || {
+        echo "note: repository clean, nothing to amend"
+        return 1
+    }
+
+    git add $(git root)
+    git commit --all --amend --no-edit &> /dev/null
+    echo "success: amend all to \"`git log -n 1 --pretty=format:%s HEAD`\""
+}
+
+amend_all "${@}"
+

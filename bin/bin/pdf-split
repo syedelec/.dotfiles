@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/pdf.lib.sh
+
+__pdf_split() {
+    __check_binary__ qpdf || return 1
+    if [ $# -ne 1 ]; then
+        echo "fatal: wrong arguments provided"
+        echo "usage: $ $(basename ${0}) <in.pdf>"
+        return 1
+    fi
+
+    local input_pdf="${1}"
+    __check_pdf__ "${input_pdf}" || return 1
+
+    local npages=$(qpdf --show-npages ${input_pdf})
+    local input_file=$(basename -- "${input_pdf%.*}")
+    local output_folder="split_${input_file}/"
+    [ -d ${output_folder} ] || mkdir ${output_folder} &> /dev/null
+
+    qpdf ${input_pdf} --split-pages ${output_folder}/${input_file}.pdf
+    [ $? -eq 0 ] || return 1 && echo "success: generated ${npages} pages in ${output_folder}"
+}
+
+__pdf_split "${@}"
+

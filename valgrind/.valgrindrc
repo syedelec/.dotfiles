@@ -1,0 +1,4 @@
+--memcheck:leak-check=full
+--memcheck:show-reachable=yes
+--memcheck:track-origins=yes
+--memcheck:show-leak-kinds=all

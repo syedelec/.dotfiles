@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+exclude() {
+    __is_git_repo__ || return 1
+    __check_no_args__ ${@} || return 1
+
+    git_root="$(git root)"
+    for file in ${@}; do
+        if [ -e "${file}" ]; then
+            path_file="$(realpath --relative-to=${git_root} ${file})"
+            [ -d "${file}" ] && path_file+="/"
+            exclude_path="${git_root}/.git/info/exclude"
+            echo ${path_file} >> ${exclude_path}
+        else
+            echo "fatal: file/folder '${file}' does not exist"
+        fi
+    done;
+}
+
+exclude ${@}
+

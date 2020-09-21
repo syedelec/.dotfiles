@@ -1,0 +1,21 @@
+% android, device
+
+# logcat
+adb -s <device> logcat -v time
+
+# get property
+adb -s <device> shell getprop <property>
+
+# install APK
+adb -s <device> install -r <path>
+
+# uninstall package
+adb -s <device> uninstall -r <package>
+
+# clear user data for package
+adb -s <device> shell pm clear <package>
+
+# dispatch a deep-link / open URI
+adb -s <device> shell am start <uri>
+
+$ device: adb devices | grep -v devices | grep device | cut -f 1

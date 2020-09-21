@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/pdf.lib.sh
+
+pdf_compress() {
+    __check_binary__ gs || return 1
+    __check_no_args__ "${@}" || {
+        echo "usage: $ $(basename ${0}) <input.pdf> [<dpi>]"
+        return 1
+    }
+
+    local input_pdf="${1}"
+    __check_pdf__ "${input_pdf}" || return 1
+
+    local output_pdf="$(basename -- "${input_pdf%.*}")_compressed.pdf"
+
+    q+="[warning]"$'\n'
+    q+="This re-writes the current PDF to: \"${output_pdf}\""$'\n'
+    q+="Information bookmark, outline and metadata will be lost."$'\n'
+    q+="Proceed [Yy/Nn] ? "
+    __question__ "${q}" || return 0
+
+    # qpdf --linearize               \
+    #      --stream-data=compress    \
+    #      --compress-streams=y      \
+    #      --decode-level=all        \
+    #      --recompress-flate        \
+    #      --compression-level=9     \
+    #      --object-streams=generate \
+    #      --optimize-images         \
+    #      ${input_pdf} ${output_pdf}
+
+    dpi=${2}
+    [ -z ${dpi} ] && {
+        echo "warning: DPI value not set, default to 200"
+        dpi=200
+    }
+
+    if [ ${dpi} -lt 150 ] || [ ${dpi} -gt 300 ]; then
+        echo "warning: make sure DPI value is normal (150 < dpi < 300)"
+    fi
+
+    gs -q -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.3 \
+       -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true           \
+       -dAutoRotatePages=/None -dColorImageDownsampleType=/Bicubic             \
+       -dColorImageResolution=${dpi} -dGrayImageDownsampleType=/Bicubic        \
+       -dGrayImageResolution=${dpi} -dMonoImageDownsampleType=/Subsample       \
+       -dMonoImageResolution=${dpi} -sOutputFile="${output_pdf}"               \
+       "${input_pdf}" &> /dev/null
+
+    # FIXME: add compression ratio
+    # local input_size=$(stat -c%s "${input_pdf}")
+    # local output_size=$(stat -c%s "${output_pdf}")
+
+    # local ratio="$(echo "scale=2; $osize*100/$size" | bc)%"
+    [ $? -eq 0 ] || return 1 && echo "success: compressed ${input_pdf} to ${output_pdf}"
+}
+
+pdf_compress "${@}"
+

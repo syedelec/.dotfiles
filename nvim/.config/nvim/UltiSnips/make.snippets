@@ -1,0 +1,25 @@
+snippet base "[snippet] basic Makefile" b
+.PHONY: clean, mrproper
+CC = gcc
+CFLAGS = -g -Wall
+
+all: $1
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+${1:out}: $1.o
+	$(CC) $(CFLAGS) -o $@ $+
+
+clean:
+	rm -f *.o core.*
+
+mrproper: clean
+	rm -f $1
+endsnippet
+
+snippet help "[snippet] help for Makefile" b
+help: ## Prints help for targets with comments
+	@cat $(MAKEFILE_LIST) | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $\$1, $\$2}'
+${0}
+endsnippet

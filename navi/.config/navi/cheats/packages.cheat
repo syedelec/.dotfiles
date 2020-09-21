@@ -1,0 +1,34 @@
+% packages, pacman
+
+# list installed packages
+pacman -Qq
+
+# list installed AUR packages
+pacman -Qqm
+
+# find which package contains a file
+sudo pacman -Fy && pacman -F <file>
+
+# list files installed by a package [local]
+pacman -Ql <installed_package> | grep -v '/$'
+
+# list files installed by a package [online]
+pacman -Ql <online_package> | grep -v '/$'
+
+# install a package
+sudo pacman -Sy --needed --noconfirm <online_package>
+
+# install an AUR package
+yay -Sy --needed --noconfirm <online_package>
+
+# list info on package
+pacman -Qi <installed_package>
+
+# remove package
+sudo pacman -R --noconfirm <installed_package>
+
+# remove package ignoring dependencies
+sudo pacman -Rdd <installed_package>
+
+$ installed_package: pacman -Qq
+$ online_package: pacman -Slq

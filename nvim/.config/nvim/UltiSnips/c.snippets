@@ -1,0 +1,307 @@
+snippet prdebug "[snippet] generic printf debug"
+${1:printf}("${2}%s: %d\n", __func__, __LINE__);
+endsnippet
+
+snippet prkdebug "[snippet] generic pr_info debug"
+pr_${1:info}("${2}%s: %d\n", __func__, __LINE__);
+endsnippet
+
+snippet prbuffer "[snippet] print buffer in a loop"
+${1:printf}("${2:0x%02X} ", ${2:buffer}[${3:i}]);
+endsnippet
+
+snippet print "[snippet] print basic function"
+printf("${1:%s}\n"${2});
+endsnippet
+
+snippet fprint "[snippet] fprint basic function"
+fprintf(${1:stderr}, "${2:%s}\n"${3});
+endsnippet
+
+snippet main "[snippet] main init"
+int main(int argc, const char *argv[])
+{
+	${0:/* code */}
+	return 0;
+}
+endsnippet
+
+snippet hello_world "[snippet] hello world main init"
+#include <stdio.h>
+
+int main()
+{
+	printf("Hello, World !\n");
+	return 0;
+}
+endsnippet
+
+snippet inc_sys "[snippet] include with <...>"
+#include <${1:stdio}.h>
+endsnippet
+
+snippet inc_quote "[snippet] include with '...'"
+#include "${1:stdio}.h"
+endsnippet
+
+snippet if "[snippet] if (...) {...}"
+if (${1:/* condition */}) {
+	${2:/* code */}
+}
+endsnippet
+
+snippet ife "[snippet] if (...) {...} else {...}"
+if (${1:/* condition */}) {
+	${2:/* code */}
+} else {
+	${3:/* code */}
+}
+endsnippet
+
+snippet el "[snippet] else {...}"
+else {
+	${0:/* code */}
+}
+endsnippet
+
+snippet elif "[snippet] else if {...}"
+else if (${1:/* condition */}) {
+	${0:/* code */}
+}
+endsnippet
+
+snippet switch "[snippet] switch case default {...}"
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3:/* code */}
+		${4:break;}
+	default:
+		${5:/* code */}
+}
+endsnippet
+
+snippet for "[snippet] for (...) {}"
+for (int ${1:i} = 0; $1 < ${2:len}; $1${3:++}) {
+	${4:/* code */}
+}
+endsnippet
+
+snippet while "[snippet] for while (...) {}"
+while (${1:/* condition */}) {
+	${2:/* code */}
+}
+endsnippet
+
+snippet dowh "[snippet] for do {} while (...)"
+do {
+	${1:/* code */}
+} while(${2:/* condition */});
+endsnippet
+
+snippet fun "[snippet] function (...) {}"
+${1:void} ${2:function_name}(${3})
+{
+	${4:/* code */}
+}
+endsnippet
+
+snippet fund "[snippet] function definition"
+${1:void} ${2:function_name}(${3});
+endsnippet
+
+snippet _hex_dump "[snippet] call hex_dump function"
+hex_dump("${1:name_buffer}", ${2:buffer}, ${3:sizeof($2)});
+endsnippet
+
+snippet hex_dump "[snippet] define hex_dump function"
+static void hex_dump(char *name_buffer, void *buffer, int len) {
+
+	int i;
+	unsigned char buff[17];
+	unsigned char *pc = (unsigned char*)buffer;
+
+	/* output buffer if given */
+	if (name_buffer != NULL)
+		${1:printf}("%s:\n", name_buffer);
+
+	if (len == 0) {
+		$1("  ZERO LENGTH\n");
+		return;
+	}
+
+	if (len < 0) {
+		$1("  NEGATIVE LENGTH: %i\n", len);
+		return;
+	}
+
+	/* process every byte in the data */
+	for (i = 0; i < len; i++) {
+		/* multiple of 16 means new line (with line offset) */
+
+		if ((i % 16) == 0) {
+			/* just don't print ASCII for the zeroth line */
+			if (i != 0)
+				$1("  %s\n", buff);
+
+			/* output the offset */
+			$1("  %04x ", i);
+		}
+
+		/* now the hex code for the specific character */
+		$1(" %02X", pc[i]);
+
+		/* and store a printable ASCII character for later */
+		if ((pc[i] < 0x20) || (pc[i] > 0x7e))
+			buff[i % 16] = '.';
+		else
+			buff[i % 16] = pc[i];
+		buff[(i % 16) + 1] = '\0';
+	}
+
+	/* pad out last line if not exactly 16 characters */
+	while ((i % 16) != 0) {
+		$1("   ");
+		i++;
+	}
+
+	/* and print the final ASCII bit */
+	$1("  %s\n", buff);
+}
+endsnippet
+
+snippet getopt "[snippet] for parsing args"
+int choice;
+int verbose_flag = 0;
+
+struct option long_options[] =
+{
+	// Use flags like so:
+	{"verbose", no_argument, &verbose_flag, 1},
+	// Argument styles: no_argument, required_argument, optional_argument
+	{"version", no_argument, 0, 'v'},
+	{"help", no_argument, 0, 'h'},
+	${1}
+	{0, 0, 0, 0}
+};
+
+while ((choice = getopt_long( argc, argv, "vhV", long_options, NULL)) != -1)
+{
+	/*
+	 * Argument parameters:
+	 *	  no_argument: " "
+	 *	  required_argument: ":"
+	 *	  optional_argument: "::"
+	 */
+
+	if (choice == -1)
+		break;
+
+	switch (choice)
+	{
+		case 'v':
+			${2}
+			break;
+
+		case 'h':
+			${3:printf("Usage: %s [vhV] --version --help --verbose\n", argv[0]);}
+			return EXIT_SUCCESS;
+			break;
+
+		case 'V':
+			${1:verbose_flag = 1;}
+			break;
+
+		case '?':
+			/* getopt_long will have already printed an error */
+			break;
+
+		default:
+			return EXIT_FAILURE;
+	}
+}
+
+/* Deal with non-option arguments here */
+if (optind < argc)
+{
+	printf("non-option ARGV-elements: ");
+	while (optind < argc)
+		printf("%s ", argv[optind++]);
+	printf("\n");
+}
+endsnippet
+
+snippet once "Include header once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+	import random, string
+	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
+	rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
+	snip.rv = ('%s_%s' % (name,rand)).upper()
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${VISUAL}$0
+
+#endif /* end of include guard: $1 */
+endsnippet
+
+snippet printf "printf .. (printf)"
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet fprintf "fprintf ..."
+fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+global !p
+def split_line(text):
+	import textwrap
+	lines = textwrap.wrap(text, 78 - 19)
+	output = list()
+	for line in lines:
+		output.append('*' + ' '*19 + line)
+	snip_line = snip.tabstops[4].end[0]
+	snip.buffer.append(output, snip_line + 1)
+	del snip.buffer[snip_line]
+def get_args(arglist):
+	args = [arg.strip() for arg in arglist.split(',') if arg]
+	return args
+endglobal
+
+post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
+
+snippet head "File Header" b
+/******************************************************************************
+* File:             `!p snip.rv = fn`
+*
+* Author:           ${2}
+* Created:          `date +%m/%d/%y`
+* Description:      ${4:${VISUAL}}
+*****************************************************************************/
+${0}
+endsnippet
+
+post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
+snippet func "Function Header"
+/******************************************************************************
+* Function:         $1
+* Description:      ${4:${VISUAL}}
+* Where:`!p 
+snip.rv = ""
+snip >> 2
+args = get_args(t[2])
+if args:
+	for arg in args:
+		snip.rv += '\n' + '*' + ' '*19 + arg + ' - TODO'
+snip << 2
+`
+* Return:           $5
+* Error:            $6
+*****************************************************************************/
+${1}($2){
+	${0}
+}
+endsnippet
+
+# vim:ft=snippets:

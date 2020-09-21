@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/core.lib.sh
+
+ccopy() {
+    __check_binary__ xclip || return 1
+    __check_no_args__ "${@}" || {
+        echo "usage: $ $(basename ${0}) <file>"
+        return 1
+    }
+    local file=${1}
+    __check_files_exist__ ${file} || return 1
+    xclip -selection clipboard < ${file}
+}
+
+ccopy ${@}
+
