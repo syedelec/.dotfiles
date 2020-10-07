@@ -12,4 +12,8 @@ git tag -f "<tag>"
 # delete remote tag
 git push --delete origin <remote_tags>
 
+# delete remote branch
+git push --delete origin <remote_branches>
+
 $ remote_tags: git ls-remote --tags --refs origin | sed 's/.*refs\/tags\///'
+$ remote_branches: git ls-remote --heads origin | sed 's/.*refs\/heads\///'
