@@ -471,6 +471,9 @@
     " let g:echodoc_enable_at_startup = 1
 " }
 
+" vim-better-whitespace {
+    let g:better_whitespace_guicolor='#BF616A'
+" }
 
 " startify {
     " Once in Startify set flgas to :
