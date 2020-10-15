@@ -77,6 +77,10 @@ call plug#begin('~/.config/nvim/plugged')
     " Alignment plugin
     Plug 'junegunn/vim-easy-align'
 
+    " Built-in LSP
+    " Plug 'neovim/nvim-lspconfig'
+    " Plug 'nvim-lua/completion-nvim'
+
     " Tabline for buffers/tabs
     " Plug 'zefei/vim-wintabs'
 
