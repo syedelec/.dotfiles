@@ -6,7 +6,7 @@ source ${HOME}/bin/.lib/core.lib.sh
 __is_git_repo__() {
     __check_binary__ git || return 1
     if [ $# -eq 0 ]; then
-        git rev-parse HEAD &> /dev/null || return 1
+        git rev-parse HEAD 1> /dev/null || return 1
     else
         [ -d ${1} ] || {
             echo "fatal: folder ${1} does not exist"
