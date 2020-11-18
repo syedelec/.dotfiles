@@ -52,7 +52,7 @@ __fzf_files_print() {
 # binding: ALT-D
 __fzf_dir_mru() {
     local dir
-    dir="$(zoxide query -l "$1" | fzf --tiebreak=length,end -1 -0 +m -q "'")"
+    dir="$(zoxide query -l | fzf --tiebreak=length,end -1 -0 +m -q "'")"
     [ -n "${dir}" ] && __readline_insert__ "${dir}"
 }
 
@@ -87,9 +87,7 @@ __fzf_find() {
 # output of `zoxide` using `fzf`
 fd() {
     local dir
-
-    # using zoxide
-    dir="$(zoxide query -l "$1" | fzf -1 -0 +m -q "'")" &&
+    dir="$(zoxide query -l | fzf -1 -0 +m -q "'")" &&
         cd "${dir}" || return 1
 }
 
