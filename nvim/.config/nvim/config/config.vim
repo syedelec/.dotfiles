@@ -159,7 +159,7 @@ set cmdheight=2                             " use a status bar that is 2 rows hi
 set wildmenu                                " make tab completion for files/buffers act like bash
 set wildmode=full                           " shows a menu bar as opposed to an enormous list
 set wildignorecase                          " ignore case when completing file names and directories
-set completeopt=menuone                     " complete options
+set completeopt=menuone,noinsert            " complete options
 set noshowmode
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

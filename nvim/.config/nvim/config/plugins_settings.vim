@@ -39,6 +39,35 @@
     let g:buftabline_indicators = 1
 " }
 
+" completion-nvim {
+    " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
+    let g:completion_enable_snippet = 'UltiSnips'
+
+lua << EOF
+    require'lspconfig'.pyls.setup {
+        on_attach = require'completion'.on_attach
+    }
+    require'lspconfig'.clangd.setup {
+        cmd = { "clangd", "--background-index" },
+        on_attach = require'completion'.on_attach
+    }
+    require'lspconfig'.bashls.setup {
+        on_attach = require'completion'.on_attach
+    }
+EOF
+" }
+
+" nvim-treesitter {
+lua << EOF
+    require'nvim-treesitter.configs'.setup {
+        ensure_installed = { "c", "python", "bash" },
+        highlight = {
+            enable = true,
+        },
+    }
+EOF
+" }
+
 " vim-lastplace {
     let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
     let g:lastplace_ignore_buftype = "quickfix,nofile,help"
