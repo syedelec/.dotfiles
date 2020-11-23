@@ -2,7 +2,7 @@
 
 # enable color support of ls and also add handy aliases
 if [ -x $(command -v dircolors) ]; then
-    test -r ~/.dir_colors && eval "$(dircolors -b ~/.dir_colors)" || eval "$(dircolors -b)"
+    [ -f ~/.dir_colors ] && eval "$(dircolors ~/.dir_colors)"
 
     alias ls='LC_COLLATE=C ls --color=auto'
     alias grep='grep --color=auto'
@@ -24,14 +24,8 @@ alias mount='mount | column -t'
 alias mkdir='mkdir -pv'
 alias ping='ping -c 3'
 
-# or `nproc`
 alias m='make -s -j`getconf _NPROCESSORS_ONLN`'
-
-# again more aliases
 alias tree='LC_COLLATE=C tree -aC -I ".git|node_modules|bower_components|plugged|__pycache__|CMakeFiles" --dirsfirst'
-
-# force using fd binary
-alias f='command fd'
 alias dtrx='dtrx --noninteractive'
 
 # -rr - read-only mode (prevents delete and spawn shell)
