@@ -3,19 +3,30 @@
 source ${HOME}/bin/.lib/git.lib.sh
 
 
-delete() {
+delete-commit() {
     __is_git_repo__ || return 1
     __check_no_args__ ${@} || return 1
 
-    local commit_hash="${1}"
+    local first_commit="$(git rev-list --max-parents=0 HEAD)"
 
-    git cat-file -e ${commit_hash} &> /dev/null
-    if [ $? -ne 0 ]; then
-        echo "fatal: commit '${commit_hash}' does not exist"
-        return 1
-    fi
-    git rebase --rebase-merges --onto ${commit_hash}^ ${commit_hash}
+    for commit in ${@}; do
+        git cat-file -e ${commit} &> /dev/null
+        if [ $? -ne 0 ]; then
+            echo "fatal: commit '${commit}' does not exist"
+            continue
+        fi
+
+        if [[ "${first_commit}" == *"${commit}"* ]]; then
+            echo "fatal: cannot delete first commit"
+            continue
+        fi
+
+        git rebase --rebase-merges --onto ${commit}^ ${commit} &> /dev/null
+    done
+
+    echo "success: delete-commit"
+    return 0
 }
 
-delete ${@}
+delete-commit ${@}
 
