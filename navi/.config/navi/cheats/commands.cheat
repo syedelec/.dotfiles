@@ -1,0 +1,6 @@
+% commands
+
+# mount Windows NTFS partition
+sudo mount -t ntfs-3g -o uid=1000,gid=1000,dmask=002,fmask=111 <partition> /mnt
+
+$ partition: lsblk -p -r -n -o NAME
