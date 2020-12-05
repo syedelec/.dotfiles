@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-[ -e .profile ] && source .profile
-[ -e .xinitrc ] && source .xinitrc
+[ -e ${HOME}/.profile ] && source ${HOME}/.profile
+[ -e ${HOME}/.xinitrc ] && source ${HOME}/.xinitrc
 
