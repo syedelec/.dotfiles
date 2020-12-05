@@ -38,7 +38,7 @@
 [credential]
     # store : Store credentials indefinitely on disk
     # cache : Cache credentials in memory for a short period of time
-    helper = store
+    helper = cache
 
 [pager]
     # diff = delta
