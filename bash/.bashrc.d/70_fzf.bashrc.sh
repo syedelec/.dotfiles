@@ -73,7 +73,9 @@ __fzf_find() {
     # --delimiter=: --nth -1.. looks only for search results and not filenames
     local -r regex="(^$|^.$|^(\s+|\"\s+)\})"
     file=$(rg --column --no-heading --invert-match "${regex}" --color=always |
-           fzf -0 --ansi --tiebreak=end -n 3.. -d : -q "'${*:-}"             |
+           fzf -0 --ansi --tiebreak=end -n 3.. -d : -q "'${*:-}" \
+               --preview 'bat --highlight-line {2} {1}'          \
+               --preview-window +{2}-/2 |
            awk -F: '{print $1 " +" $2}')
 
     [[ -n "${file}" ]] && ${EDITOR:-nvim} ${file}
