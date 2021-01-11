@@ -16,6 +16,7 @@ assemble() {
     version=$(git describe --always --long ${branch} 2> /dev/null)
 
     filename=${archive_name}.${version}.${branch}.zip
+    filename=$(echo ${filename//\//-})
 
     git -C $(git root) archive --format=zip --prefix=${archive_name}/         \
                                -o ${filename} ${branch}
