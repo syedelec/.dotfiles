@@ -139,11 +139,21 @@ __fzf_commit() {
     __is_git_repo__ || return 1
 
     local commits
-    commits=$(git lg -100 |
-        fzf --query="'" --ansi --multi --bind "ctrl-p:toggle-preview" \
-        --preview="git show-name {+1}; git show --pretty='' {+1} | diff-so-fancy" |
-        sed 's/ .*//' | tr '\r\n' ' ')
-    [[ -n "${commits}" ]] && __readline_insert__ "${commits}"
+
+    commits=($(git lg -100 |
+        fzf --query="'" --ansi --multi                                      \
+        --header "<C-P> to toggle preview | <C-S> to print message"         \
+        --bind "ctrl-p:toggle-preview"                                      \
+        --bind "ctrl-s:execute(git show -s --format=%s%b {+1})+abort"       \
+        --bind "enter:execute(echo {+1})+abort"                             \
+        --preview="git show-name {+1}; git show --pretty='' {+1} | diff-so-fancy" \
+    ))
+
+    # echo "array len: ${#commits[@]}"
+    # for commit in "${commits[@]}"; do
+    #     __readline_insert__ "${commit} "
+    # done
+    [[ -n "${commits[@]}" ]] && __readline_insert__ "${commits[@]}"
 }
 
 ###############################################################################
