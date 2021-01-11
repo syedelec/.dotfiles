@@ -25,9 +25,6 @@ __pycache__
 # files
 *.old
 
-# navi is still in testing
-bin/bin/navi
-
 # mpd
 mpd/.config/mpd/*
 
