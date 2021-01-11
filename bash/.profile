@@ -41,6 +41,7 @@ export XDG_DATA_DIRS="${XDG_DATA_HOME}:${XDG_DATA_DIRS}:/usr/share:/usr/local/sh
 
 # common exports
 export EDITOR="$(which nvim || which vim || which subl || which subl3)"
+export GIT_EDITOR="${EDITOR}"
 export BROWSER="$(which firefox || which google-chrome-stable || which opera)"
 
 # set PATH so it includes user's private bin if it exists
