@@ -537,6 +537,7 @@ EOF
         \ { 'f': '~/.dotfiles/nvim/.config/nvim/config/functions.vim' },
         \ { 'm': '~/.dotfiles/nvim/.config/nvim/config/mapping.vim' },
         \ { 'p': '~/.dotfiles/nvim/.config/nvim/config/plugins.vim' },
+        \ { 's': '~/.dotfiles/nvim/.config/nvim/config/plugins_settings.vim' },
         \ ]
 
     let g:startify_lists = [
