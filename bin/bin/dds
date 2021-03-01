@@ -1,0 +1,88 @@
+#!/bin/bash
+
+enable_warning=0
+
+log()
+{
+	echo "$(basename $0): $@"
+}
+
+warn()
+{
+	enable_warning=1
+	log "warning: $@"
+}
+
+# @param $1 path to the block device
+# @returns 0 if the device is non-removable, 1 otherwise
+is_non_removable()
+{
+	local arg=$(basename $1)
+	local non_removable=$(grep -H ^ATA\ * /sys/block/*/device/vendor | cut -d / -f 4 | xargs)
+
+	for device in $non_removable; do
+		if [ "x$arg" == "x$device" ]; then
+			return 0
+		fi
+	done
+
+	return 1
+}
+
+# @param $1 one argument of dd
+# checks if it is an "of=" argument if the file given is
+# * a not block device
+# * a non-removable device
+check_of_argument()
+{
+	local arg=$1
+
+	if [ "x${arg:0:3}" == "xof=" ]; then
+		if [ "x$(dirname ${arg:3})" == "x/dev" ]; then
+			if [ ! -b ${arg:3} ]; then
+				warn "${arg:3} is not a block device"
+			elif is_non_removable "${arg:3}"; then
+				warn "${arg:3} is a non-removable device"
+			fi
+		fi
+	fi
+}
+
+# @param $@ argument to be passed to dd
+ee()
+{
+	local required_programs="dd basename grep cut xargs"
+
+	for program in $required_programs; do
+		if [ -z $(command -v $program) ]; then
+			log "$program is not installed, Bye!"
+			exit 1
+		fi
+	done
+
+	if [ $# -ne 0 ]; then
+		for arg in $@; do
+			check_of_argument $arg
+		done
+	fi
+
+	if [ $enable_warning -eq 1 ]; then
+		read -N 1 -e -p "$(basename $0): are you sure to run: dd $(echo $@) ? [y/n] " yn
+
+		if [ "x$yn" != "xy" ]; then
+			log "dd was NOT executed, Bye!"
+			exit 0
+		fi
+	fi
+
+	log "run: dd $@"
+	dd $@
+	if [ $? -eq 0 ]; then
+		log "sync in progress..."
+		sync
+		log "sync done, Bye!"
+	fi
+}
+
+# Main function
+ee $@
