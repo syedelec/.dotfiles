@@ -23,6 +23,8 @@ if has("nvim")
 	inoremap <esc> <esc><esc>
 endif
 
+nnoremap <silent> <esc><esc> :<c-u>nohlsearch<CR>
+
 " Remap Ctrl-w to close/destroy buffer using vim-sayonara
 noremap <c-w> :Sayonara<cr>
 

@@ -90,9 +90,9 @@ set mouse=a
 set clipboard=unnamedplus
 
 
-set showcmd                                 " show (partial) command in status line.
-set showmatch                               " show matching brackets.
-set showmode                                " show current mode.
+set showcmd                                 " show (partial) command in status line
+set showmatch                               " show matching brackets
+set noshowmode                              " do not show current mode
 
 set noruler                                 " do not show the line and column numbers
 set number                                  " show the line numbers on the left side
@@ -160,7 +160,6 @@ set wildmenu                                " make tab completion for files/buff
 set wildmode=full                           " shows a menu bar as opposed to an enormous list
 set wildignorecase                          " ignore case when completing file names and directories
 set completeopt=menuone,noinsert            " complete options
-set noshowmode
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                         Specific FT Configuration                          "
