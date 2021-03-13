@@ -78,10 +78,13 @@ call plug#begin('~/.config/nvim/plugged')
     " Alignment plugin
     Plug 'junegunn/vim-easy-align'
 
+    " nvim tree-sitter configurations
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
     " Built-in LSP
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
-    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'ojroques/nvim-lspfuzzy'
 
     " Tabline for buffers/tabs
     " Plug 'zefei/vim-wintabs'

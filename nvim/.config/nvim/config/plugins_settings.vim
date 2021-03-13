@@ -42,14 +42,34 @@
 " completion-nvim {
     " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
     let g:completion_enable_snippet = 'UltiSnips'
+    " let g:completion_enable_fuzzy_match = 1
+    " let g:diagnostic_enable_virtual_text = 1
+" }
 
+" nvim-lsp {
 lua << EOF
+    local on_attach = function(_, bufnr)
+        -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        -- require'diagnostic'.on_attach()
+        require'completion'.on_attach()
+
+        local opts = { noremap=true, silent=true }
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<cr>', opts)
+    end
+
     require'lspconfig'.pyls.setup {
         on_attach = require'completion'.on_attach
     }
     require'lspconfig'.clangd.setup {
         cmd = { "clangd", "--background-index" },
-        on_attach = require'completion'.on_attach
+        on_attach = on_attach
     }
     require'lspconfig'.bashls.setup {
         on_attach = require'completion'.on_attach
@@ -65,6 +85,12 @@ lua << EOF
             enable = true,
         },
     }
+EOF
+" }
+
+" nvim-lspfuzzy {
+lua << EOF
+    require('lspfuzzy').setup {}
 EOF
 " }
 
