@@ -399,6 +399,14 @@ EOF
 
 
 " defx.nvim {
+    function! s:defx_toggle_tree() abort
+	    " Open current file, or toggle directory expand/collapse
+	    if defx#is_directory()
+		    return defx#do_action('open_or_close_tree')
+	    endif
+	    return defx#do_action('multi', ['drop', 'quit'])
+    endfunction
+
     call defx#custom#option('_', {
         \ 'columns': 'mark:indent:git:icons:filename:type',
         \ 'winwidth': 30,
@@ -459,13 +467,6 @@ EOF
     endfunction
 " }
 
-function! s:defx_toggle_tree() abort
-	" Open current file, or toggle directory expand/collapse
-	if defx#is_directory()
-		return defx#do_action('open_or_close_tree')
-	endif
-	return defx#do_action('multi', ['drop', 'quit'])
-endfunction
 
 " defx-git {
     let g:defx_git#indicators = {
@@ -486,11 +487,11 @@ endfunction
     hi Defx_git_Untracked guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
     hi Defx_git_Ignored guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
     hi Defx_git_Unknown guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
-    hi Defx_git_Renamed ctermfg=2 guifg=#ff0000
-    hi Defx_git_Modified ctermfg=2 guifg=#ff0000
-    hi Defx_git_Unmerged ctermfg=2 guifg=#ff0000
-    hi Defx_git_Deleted ctermfg=2 guifg=#ff0000
-    hi Defx_git_Staged ctermfg=2 guifg=#ff0000
+    hi Defx_git_Renamed ctermfg=2 guifg=#BF616A
+    hi Defx_git_Modified ctermfg=2 guifg=#BF616A
+    hi Defx_git_Unmerged ctermfg=2 guifg=#BF616A
+    hi Defx_git_Deleted ctermfg=2 guifg=#BF616A
+    hi Defx_git_Staged ctermfg=2 guifg=#BF616A
 " }
 
 
