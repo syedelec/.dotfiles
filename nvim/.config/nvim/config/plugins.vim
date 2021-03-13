@@ -71,8 +71,9 @@ call plug#begin('~/.config/nvim/plugged')
     " Fade unsued buffer
     Plug 'TaDaa/vimade'
 
-    " Tabline for buffers
-    Plug 'ap/vim-buftabline'
+    " Status bar information (lighter) and tabline for buffers
+    Plug 'itchyny/lightline.vim'
+    Plug 'mgee/lightline-bufferline'
 
     " Alignment plugin
     Plug 'junegunn/vim-easy-align'
