@@ -30,7 +30,6 @@
     let g:loaded_zipPlugin = 1
 " }
 
-
 " completion-nvim {
     " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
     let g:completion_enable_snippet = 'UltiSnips'
@@ -116,7 +115,6 @@ EOF
     " let g:VM_maps["Select Cursor Up"]   = '<C-Up>'          " start selecting up
     " let g:VM_maps["Select Cursor Down"] = '<C-Down>'        " start selecting down
 " }
-
 
 " vimade {
     " let g:vimade = {}
@@ -220,7 +218,6 @@ EOF
     autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " }
 
-
 " vim-gitgutter {
     if exists('&signcolumn')
         set signcolumn=yes
@@ -241,7 +238,6 @@ EOF
     " nmap <Leader>gu <Plug>GitGutterUndoHunk
     " nmap <Leader>gp <Plug>GitGutterPreviewHunk
 " }
-
 
 " lightline.vim {
     let g:lightline = {
@@ -265,7 +261,6 @@ EOF
 	    \   'left': '', 'right': ''
     \}
 " }
-
 
 " lightline-bufferline {
     let g:lightline#bufferline#show_number = 2
@@ -297,7 +292,6 @@ EOF
     vmap <C-Down> <Plug>MoveBlockDown
 " }
 
-
 " vim-mundo {
     let g:mundo_width = 50
     let g:mundo_preview_height = 30
@@ -305,7 +299,6 @@ EOF
     let g:mundo_auto_preview_delay = 0
     nnoremap <F5> :MundoToggle<CR>
 " }
-
 
 " ultisnips {
     " UltiSnips folder is reserved for Ultisnips
@@ -397,7 +390,6 @@ EOF
     " let g:startify_session_persistence = 0
 " }
 
-
 " defx.nvim {
     function! s:defx_toggle_tree() abort
 	    " Open current file, or toggle directory expand/collapse
@@ -467,7 +459,6 @@ EOF
     endfunction
 " }
 
-
 " defx-git {
     let g:defx_git#indicators = {
       \ 'Modified'  : '•',
@@ -493,7 +484,6 @@ EOF
     hi Defx_git_Deleted ctermfg=2 guifg=#BF616A
     hi Defx_git_Staged ctermfg=2 guifg=#BF616A
 " }
-
 
 " defx-icons {
     let g:defx_icons_enable_syntax_highlight = 1
