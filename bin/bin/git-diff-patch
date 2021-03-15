@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+diff-patch() {
+    __is_git_repo__ || return 1
+
+    [ -n "$(git status -s)" ] || {
+        echo "note: repository clean, nothing to generate a patch from"
+        return 1
+    }
+
+    local patch="${1:-0000-patch-from-diff.diff}"
+
+    git diff --no-color > ${patch}
+    echo "success: generated a patch from diff to \"${patch}\""
+}
+
+diff-patch "${@}"
+
