@@ -1,0 +1,29 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"ayu",
+		"Bitbake Syntax",
+		"CMake",
+		"Devicetree DTS Highlighting",
+		"Dockerfile Syntax Highlighting",
+		"Git",
+		"GitGutter",
+		"INI",
+		"Kconfig Syntax Highlight",
+		"LSP",
+		"LSP-bash",
+		"LSP-json",
+		"LSP-pylsp",
+		"Nord",
+		"Package Control",
+		"TrailingSpaces",
+	],
+	"repositories":
+	[
+	],
+}

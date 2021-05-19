@@ -1,0 +1,32 @@
+{
+    "show_diagnostics_panel_on_save": 0,
+    "clients":
+    {
+        "clangd":
+        {
+            "command":
+            [
+                "clangd",
+                "--header-insertion=never"
+            ],
+            "enabled": true
+        },
+        "lsp-bash":
+        {
+            "enabled": false
+        },
+        "pyls":
+        {
+            "enabled": true
+        }
+    },
+    "show_symbol_action_links": true,
+    "diagnostics_gutter_marker": "sign",
+    "show_diagnostics_highlights": true,
+    "document_highlight_style": "underline",
+    "inhibit_snippet_completions": true,
+    "inhibit_word_completions": true,
+    "show_diagnostics_count_in_view_status": false,
+    "show_diagnostics_in_view_status": false,
+    "show_view_status": false,
+}
