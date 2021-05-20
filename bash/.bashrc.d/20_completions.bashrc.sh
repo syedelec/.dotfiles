@@ -8,5 +8,8 @@
 # source /usr/share/bash-completion/bash_completion
 
 # _completion_loader dd
-# complete -F _dd dds
+if command -v dds > /dev/null 2>&1; then
+    _completion_loader dd
+    complete -F _dd -o nospace dds
+fi
 
