@@ -20,6 +20,9 @@
     autocrlf = input
     abbrev = 8
 
+[init]
+    defaultBranch = main
+
 [branch]
     autosetuprebase = always
 
