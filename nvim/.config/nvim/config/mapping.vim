@@ -34,6 +34,9 @@ map <a-d> <Plug>Duplicate
 " Select all text
 map <c-a> <esc>ggVG<CR>
 
+" F3: Toggle list (display unprintable characters)
+nnoremap <silent> <F3> :set list!<CR>
+
 " Do not enter Ex mode
 nnoremap Q <nop>
 
