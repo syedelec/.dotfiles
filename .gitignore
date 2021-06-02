@@ -33,6 +33,7 @@ sublime-text/.config/sublime-text-3/Package Storage
 __pycache__
 
 # files
+TODO
 *.old
 
 # mpd
