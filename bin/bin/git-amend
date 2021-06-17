@@ -15,13 +15,15 @@ amend() {
     args=("${@}")
 
     if [ $# -gt 0 ]; then
-        git add -f ${args[@]}
+        git add ${args[@]}
         git commit --amend --no-edit &> /dev/null
     else
-        [ -n "$(git -C $(git root) ls-files -m)" ] || {
-            echo "note: no modified files, nothing to amend"
+        staged_files="$(git diff --cached --name-only)"
+        modified_files="$(git ls-files --full-name -m)"
+        if [ -z "${modified_files}" ] && [ -z "${staged_files}" ]; then
+            echo "note: no modified/staged files, nothing to amend"
             return 1
-        }
+        fi
         git commit --all --amend --no-edit &> /dev/null
     fi
     echo "success: amend to \"`git log -n 1 --pretty=format:%s HEAD`\""
