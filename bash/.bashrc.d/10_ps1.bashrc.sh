@@ -37,7 +37,7 @@ _git_ps1() {
     )
 }
 
-if [[ $EUID -eq 0 ]]; then
+if [ $EUID -eq 0 ]; then
     PS1="> ${RED}\u ${YEL_1}\w${PRL} \`_git_ps1\`${RED}» ${RST}"
 else
     PS1="> ${YEL_1}\w${PRL} \`_git_ps1\`${RED}» ${RST}"
