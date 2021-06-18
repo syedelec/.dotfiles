@@ -36,7 +36,7 @@ __fzf_history() {
 __fzf_files_open() {
     local files
     files=($(rg --files-with-matches "" |
-             fzf --tiebreak=length,end -q "'${1}" -m -1 -0 --preview="bat {}"))
+             fzf --tiebreak=length,end -q "'" -m -1 -0 --preview="bat {}"))
     [ -n "${files}" ] && ${EDITOR:-nvim} "${files[@]}"
 }
 
@@ -44,7 +44,7 @@ __fzf_files_open() {
 # binding: ALT-F
 __fzf_files_print() {
     local files
-    files=($(fzf --tiebreak=length,end -n -1.. -d / -q "'${1}" -m -1 -0))
+    files=($(fzf --tiebreak=length,end -n -1.. -d / -q "'" -m -1 -0))
     [ -n "${files}" ] && __readline_insert__ "${files[@]}"
 }
 
