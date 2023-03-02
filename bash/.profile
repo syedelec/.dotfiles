@@ -94,7 +94,8 @@ export NAVI_FZF_OVERRIDES=" --color=hl:${nord13},hl+:${nord13}"
 
 export FZF_DEFAULT_OPTS="                                                     \
     --no-bold --no-mouse --height 70% --reverse --border=sharp                \
-    --tiebreak=index --bind \"change:top\" --preview-window=\"sharp\"         \
+    --tiebreak=index --bind \"change:top\" --scheme=history                   \
+    --preview-window=\"sharp\"                                                \
     --color=border:${nord3},bg+:${nord1},bg:${nord0},spinner:${nord14}        \
     --color=hl:${nord14},fg:${nord3_5},header:${nord12},info:${nord3}         \
     --color=pointer:${nord11},marker:${nord8},fg+:${nord4},gutter:${nord0}    \
