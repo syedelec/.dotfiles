@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+# does not work if selected commit is the first one
+# in that case, use --root but if logs are long (kernel)
+# it will take forever
+reword() {
+    __is_git_repo__ || return 1
+    __check_no_args__ "${@}" || return 1
+
+    local commit_id="${1}"
+    local first_commit="$(git rev-list --max-parents=0 HEAD)"
+    local commit_msg="${2}"
+
+    git cat-file -e ${commit_id} &> /dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: commit '${commit_id}' does not exist"
+        return 1
+    fi
+
+    if [[ "${first_commit}" == *"${commit_id}"* ]]; then
+        echo "fatal: cannot use first commit, use 'git rebase -i --root'"
+        return 1
+    fi
+
+    if [ -z "${commit_msg}" ]; then
+        GIT_SEQUENCE_EDITOR="sed -i 's/pick ${commit_id}/r ${commit_id}/g'" \
+            git rebase -q -i ${commit_id}^
+    else
+        GIT_EDITOR="sed -i '1s/.*/${commit_msg}/g'"                         \
+        GIT_SEQUENCE_EDITOR="sed -i 's/pick ${commit_id}/r ${commit_id}/g'" \
+            git rebase -q -i ${commit_id}^ &>/dev/null
+    fi
+
+    echo "success: reword commit"
+    return 0
+}
+
+reword "${@}"
+
