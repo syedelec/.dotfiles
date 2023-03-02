@@ -11,11 +11,10 @@ mount_img() {
         return 1
     fi
 
-    local dir="${2}"
+    local dir="${2:-mnt-point}"
     local file="${1}"
 
     __check_files_exist__ "${file}" || return 1
-    [ -z "${dir}" ] || dir="mnt-point"
 
     fs="$(blkid -o value -s TYPE ${file})"
 
