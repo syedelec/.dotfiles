@@ -78,4 +78,4 @@ Xft.hinting:           true
 Xft.hintstyle:         hintfull
 /* Xft.dpi: 180 */
 
-# vim:syntax=xdefaults
+! vim:syntax=xdefaults

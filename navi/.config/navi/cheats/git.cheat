@@ -10,6 +10,6 @@ git tag -af "<tag>" -m "<tag_msg>"
 git tag -f "<tag>"
 
 # delete remote tag
-git push --delete origin <remote_tag>
+git push --delete origin <remote_tags>
 
-$ remote_tag: git ls-remote --tags --refs origin | sed 's/.*refs\/tags\///'
+$ remote_tags: git ls-remote --tags --refs origin | sed 's/.*refs\/tags\///'
