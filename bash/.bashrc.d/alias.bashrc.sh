@@ -16,7 +16,7 @@ fi
 # LC_COLLATE=C : sort dot first
 alias l='ls -C --group-directories-first'
 alias ll='ls -Al --group-directories-first'
-alias lld='ls -hAl --group-directories-first'
+alias lls='ls -hAl --group-directories-first'
 
 alias mount='mount | column -t'
 alias mkdir='mkdir -pv'
