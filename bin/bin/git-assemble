@@ -13,14 +13,14 @@ assemble() {
     }
 
     archive_name=$(basename $(git root))
-    version=$(git describe --always --long ${branch} 2> /dev/null)
+    commit=$(git describe --always --long ${branch} 2> /dev/null)
 
-    filename=${archive_name}.${version}.${branch}.zip
-    filename=$(echo ${filename//\//-})
+    filename="${archive_name}.${branch}.${commit}.zip"
+    filename="$(echo ${filename//\//-})"
 
     git -C $(git root) archive --format=zip --prefix=${archive_name}/         \
                                -o ${filename} ${branch}
 }
 
-assemble ${@}
+assemble "${@}"
 
