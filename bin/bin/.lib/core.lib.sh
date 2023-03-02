@@ -18,6 +18,11 @@ __check_no_args__() {
     fi
 }
 
+__usage__() {
+    __check_no_args__ "${@}" || return 1
+    echo "usage: $ $(basename ${0}) ${@}"
+}
+
 __check_binary__() {
     __check_no_args__ "${@}" || return 1
     local -r binaries=("${@}")
