@@ -88,21 +88,18 @@ __fzf_find() {
 #                                FZF Functions                                #
 ###############################################################################
 
-# jump to recent folders using `zoxide` if given argument, filter
-# output of `zoxide` using `fzf`
+# jump to recent folders using `zoxide`
 f() {
     local dir
     dir="$(zoxide query -l | fzf -1 -0 +m -q "'")" &&
         cd "${dir}" || return 1
 }
 
-# cd into the directory of the selected file using `fzf` and `rg`
-# need to reset FZF_DEFAULT_COMMAND to include all files
+# cd into the directory of the selected file using `fzf`
 ff() {
     local file
-    local dir
-    file=$(fzf --tiebreak=length,end -n -1.. -d / +m -q "'$1" -1 -0) &&
-           dir=$(dirname "${file}") && cd "${dir}" || return 1
+    file=$(fzf --tiebreak=length,end -n -1.. -d / +m -q "'" -1 -0) &&
+           cd "$(dirname "${file}")" || return 1
 }
 
 # cd to selected parent directory using `fzf`
@@ -249,7 +246,7 @@ bind -x '"\C-f": "__fzf_find"'
 # ALT-D - Paste last used directory
 bind -x '"\M-d": "__fzf_dir_mru"'
 
-# ALT-D - Print selected file(s)
+# ALT-F - Print selected file(s)
 bind -x '"\M-f": "__fzf_files_print"'
 
 # ALT-G - Paste the selected commit from git log into the command line
