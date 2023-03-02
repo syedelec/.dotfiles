@@ -107,5 +107,5 @@ export FZF_DEFAULT_COMMAND="rg                                                \
 #                                   bashrc                                    #
 ###############################################################################
 
-[[ -s "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
+[ -s "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
 

@@ -29,7 +29,7 @@ qft() {
     local _ext=""
     local _arg="${!#}"
     local _args=(${@:1:$#-1})
-    if [[ "/" = "${_arg: -1}" ]]; then
+    if [ "/" = "${_arg: -1}" ]; then
         for arg in ${_args[@]}; do _ext+="-e ${arg} "; done
         command fd --no-ignore-vcs --hidden --type f ${_ext} . ${_arg}
     else

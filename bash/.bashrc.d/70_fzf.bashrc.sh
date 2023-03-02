@@ -28,7 +28,7 @@ __fzf_history() {
     local cmd
     cmd=$(HISTTIMEFORMAT= history | fzf --tac --sync -n2.. -q "'" |
           sed 's/^ *\([0-9]*\)\** *//')
-    [[ -n "${cmd}" ]] && __readline_replace__ "${cmd}"
+    [ -n "${cmd}" ] && __readline_replace__ "${cmd}"
 }
 
 # open files using `fzf` and `rg`
@@ -109,8 +109,8 @@ ff() {
 fp() {
     local declare dirs=()
     get_parent_dirs() {
-        if [[ -d "${1}" ]]; then dirs+=("${1}"); else return; fi
-        if [[ "${1}" == '/' ]]; then
+        if [ -d "${1}" ]; then dirs+=("${1}"); else return; fi
+        if [ "${1}" == '/' ]; then
             for _dir in "${dirs[@]}"; do echo $_dir; done
         else
             get_parent_dirs $(dirname "${1}")
@@ -156,7 +156,7 @@ __fzf_commit() {
     # for commit in "${commits[@]}"; do
     #     __readline_insert__ "${commit} "
     # done
-    [[ -n "${commits[@]}" ]] && __readline_insert__ "${commits[@]}"
+    [ -n "${commits[@]}" ] && __readline_insert__ "${commits[@]}"
 }
 
 ###############################################################################
@@ -190,13 +190,13 @@ __fzf_git_cherrypick() {
     local commit
     local cp_dir=$(realpath ${1})
     local pwd_dir="$(git root)"
-    [[ ! -d ${cp_dir} ]] && echo "fatal: folder ${cp_dir} does not exist" && return 1
+    [ ! -d ${cp_dir} ] && echo "fatal: folder ${cp_dir} does not exist" && return 1
     [ "${cp_dir}" = "${pwd_dir}" ] && echo "provided directory cannot be current directory" && return 1
 
     __is_git_repo__ || return 1
     __is_git_repo__ ${cp_dir} || return 1
 
-    [[ "$(git -C ${pwd_dir} root)" = "$(git -C ${cp_dir} root)" ]] && \
+    [ "$(git -C ${pwd_dir} root)" = "$(git -C ${cp_dir} root)" ] && \
         echo "fatal: same git directories provided" && return 1
 
     current_commit=$(git -C ${pwd_dir} log --format='%Cgreen[%h]%Creset %C(dim white)- %s' -1)
