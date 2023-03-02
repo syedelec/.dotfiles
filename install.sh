@@ -77,15 +77,15 @@ pacman_utils=(
 pacman_dev=(
     vim
     dub ldc meson
-    python-pip python2-pip
+    python-pip
 )
 pacman_tools=(
     docker openssl wget curl git ripgrep uncrustify valgrind mplayer
     fd bat fzf rofi stow the_silver_searcher tree yay lynx firefox
     cmus cppcheck shellcheck meld android-tools neofetch cargo efitools
     deluge minicom evince dialog tk jq sd diff-so-fancy texlive-core
-    bash-language-server python-lsp-server clangd jdk11-openjdk
-    jre11-openjdk binwalk tree-sitter
+    bash-language-server python-lsp-server clang jdk11-openjdk
+    jre11-openjdk binwalk tree-sitter duf
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh
@@ -112,11 +112,11 @@ pacman_lib=(
 
 yay_tools=(
     bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
-    zoxide-bin navi-bin duf-bin neovim-nightly-bin teams teamviewer
-    cling just-bin libtree bear gdu pandoc-bin
+    zoxide navi-bin neovim-nightly-bin teams teamviewer
+    cling libtree bear gdu pandoc-bin
 )
 yay_customization=(
-    paper-icon-theme i3lock-fancier-git colorpicker
+    paper-icon-theme colorpicker
 )
 
 #########
