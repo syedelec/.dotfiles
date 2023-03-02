@@ -55,7 +55,7 @@ lua << EOF
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<cr>', opts)
     end
 
-    require'lspconfig'.pyls.setup {
+    require'lspconfig'.pylsp.setup {
         on_attach = require'completion'.on_attach
     }
     require'lspconfig'.clangd.setup {
