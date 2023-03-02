@@ -19,6 +19,7 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     abbrev = 8
+    pager = delta
 
 [init]
     defaultBranch = main
@@ -43,18 +44,72 @@
     helper = cache
 
 [pager]
-    # diff = delta
-    diff = diff-so-fancy | less --tabs=4 -RFX
-    show = diff-so-fancy | less --tabs=4 -RFX
+    diff = delta
+    show = delta
     log  = false
     branch = false
 
 [advice]
     detachedHead = false
 
-[diff-so-fancy]
-    markEmptyLines = false
-    stripLeadingSymbols = false
+[delta]
+    hyperlinks = false
+    inspect-raw-lines = true
+    keep-plus-minus-markers = false
+    light = false
+    line-numbers = false
+    navigate = true
+    navigate-regex = ^(added:|modified:|removed:|renamed:)
+    pager = less --tabs=4 -RX
+    paging = auto
+    side-by-side = false
+    syntax-theme = Nord
+    true-color = always
+
+    commit-style = "blue"
+    commit-decoration-style = none
+
+    file-added-label = added:
+    file-copied-label = copied:
+    file-modified-label = modified:
+    file-removed-label = removed:
+    file-renamed-label = renamed:
+
+    blame-code-style = syntax
+    blame-format = [{commit:>9}] {author:^21} {timestamp:<18}
+    blame-palette = "#343B49"
+    blame-separator-format = │{n:^5}│
+    blame-separator-style = black #ffeeee
+    blame-timestamp-output-format = %Y-%m-%d %H:%M
+
+    file-style = "yellow"
+    file-decoration-style = "yellow ul ol"
+
+    hunk-header-decoration-style = "blue"
+    hunk-header-style = "file line-number cyan"
+    hunk-header-file-style = "blue"
+    hunk-header-line-number-style = "blue"
+    hunk-label = "@"
+
+    line-numbers-left-format = "{nm:<3}•"
+    line-numbers-left-style = black
+    line-numbers-minus-style = red
+    line-numbers-plus-style = green
+    line-numbers-right-format = "{np:>3}  "
+    line-numbers-right-style = white
+    line-numbers-zero-style = grey
+
+    minus-style = "red"
+    minus-non-emph-style = "red"
+    minus-emph-style = "white red"
+    minus-empty-line-marker-style = "normal #3f0001"
+
+    plus-style = "green"
+    plus-non-emph-style = "green"
+    plus-emph-style = "black green"
+    plus-empty-line-marker-style = "normal #002800"
+
+    whitespace-error-style = "reverse red"
 
 [merge]
     conflictstyle = diff3
@@ -140,22 +195,3 @@
 [gui]
     fontui = -family NotoSansRegular -size 11 -weight normal -slant roman -underline 0 -overstrike 0
     fontdiff = -family EnvyCodeR -size 10 -weight normal -slant roman -underline 0 -overstrike 0
-
-; [delta]
-;     navigate = true
-;     light = false
-;     syntax-theme = Nord
-;     plus-style = syntax "#A3BE8C"
-;     minus-style = syntax "#BF616A"
-
-; [delta "decorations"]
-;     commit-decoration-style = bold yellow box ul
-;     file-style = bold yellow ul
-;     file-decoration-style = none
-;     hunk-header-decoration-style = cyan box ul
-
-; [delta "line-numbers"]
-;     line-numbers-left-style = cyan
-;     line-numbers-right-style = cyan
-;     line-numbers-minus-style = 124
-;     line-numbers-plus-style = 28

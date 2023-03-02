@@ -83,7 +83,7 @@ pacman_tools=(
     docker openssl wget curl git ripgrep uncrustify valgrind mplayer sd
     fd bat fzf rofi stow tree yay lynx firefox cmus cppcheck shellcheck
     meld android-tools cargo efitools deluge evince dialog tokei binwalk
-    jq diff-so-fancy texlive-core bash-language-server python-lsp-server
+    jq texlive-core bash-language-server python-lsp-server git-delta
     clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
     mattermost-desktop whois
 )

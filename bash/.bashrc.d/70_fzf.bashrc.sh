@@ -146,7 +146,7 @@ __fzf_commit() {
         --bind "ctrl-p:toggle-preview"                                      \
         --bind "ctrl-s:execute(git show -s --format=%s%b {+1})+abort"       \
         --bind "enter:execute(echo {+1})+abort"                             \
-        --preview="git show-name {+1}; git show --pretty='' {+1} | diff-so-fancy" \
+        --preview="git show-name {+1}; git show --pretty='' {+1} | delta"   \
     ))
 
     # echo "array len: ${#commits[@]}"
@@ -163,7 +163,7 @@ __fzf_commit() {
 # __fzf_git_add - git add with preview
 __fzf_git_add() {
     git status -s |
-        fzf --query="'" --multi --ansi --preview="git diff {+2} | diff-so-fancy" \
+        fzf --query="'" --multi --ansi --preview="git diff {+2} | delta" \
         --header "<C-P> to toggle preview | <C-S> to checkout file | <C-A> to add files" \
         --bind "ctrl-p:toggle-preview" \
         --bind "ctrl-a:execute(echo {} | xargs -I % sh -c 'git add %')+accept" \
@@ -174,7 +174,7 @@ __fzf_git_add() {
 __fzf_git_log() {
     local commit="echo {} | sed 's/ .*//'"
     git lg |
-        fzf --query="'" --ansi --preview="${commit} | xargs git show | diff-so-fancy" \
+        fzf --query="'" --ansi --preview="${commit} | xargs git show | delta" \
         --header "<C-P> to toggle preview | <C-S> to show commit | <C-R> to hard reset" \
         --bind "ctrl-p:toggle-preview" \
         --bind "ctrl-s:execute(${commit} | xargs git show)" \
