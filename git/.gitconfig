@@ -56,8 +56,12 @@
     markEmptyLines = false
     stripLeadingSymbols = false
 
+[merge]
+    conflictstyle = diff3
+
 [diff]
     tool = vimdiff
+    colorMoved = default
 
 [difftool]
     prompt = false
@@ -137,19 +141,21 @@
     fontui = -family NotoSansRegular -size 11 -weight normal -slant roman -underline 0 -overstrike 0
     fontdiff = -family EnvyCodeR -size 10 -weight normal -slant roman -underline 0 -overstrike 0
 
-# [delta]
-#     syntax-theme = Nord
-#     plus-style = syntax "#A3BE8C"
-#     minus-style = syntax "#BF616A"
+; [delta]
+;     navigate = true
+;     light = false
+;     syntax-theme = Nord
+;     plus-style = syntax "#A3BE8C"
+;     minus-style = syntax "#BF616A"
 
-# [delta "decorations"]
-#     commit-decoration-style = bold yellow box ul
-#     file-style = bold yellow ul
-#     file-decoration-style = none
-#     hunk-header-decoration-style = cyan box ul
+; [delta "decorations"]
+;     commit-decoration-style = bold yellow box ul
+;     file-style = bold yellow ul
+;     file-decoration-style = none
+;     hunk-header-decoration-style = cyan box ul
 
-# [delta "line-numbers"]
-#     line-numbers-left-style = cyan
-#     line-numbers-right-style = cyan
-#     line-numbers-minus-style = 124
-#     line-numbers-plus-style = 28
+; [delta "line-numbers"]
+;     line-numbers-left-style = cyan
+;     line-numbers-right-style = cyan
+;     line-numbers-minus-style = 124
+;     line-numbers-plus-style = 28
