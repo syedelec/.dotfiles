@@ -6,7 +6,7 @@
     "caret_extra_width": 0,
     "caret_style": "phase",
     "theme": "ayu-mirage.sublime-theme",
-    "color_scheme": "Packages/Nord/Nord.sublime-color-scheme",
+    "color_scheme": "Nord.sublime-color-scheme",
     "drag_text": false,
     "font_face": "Envy Code R",
     "font_options":
@@ -18,6 +18,8 @@
     "highlight_line": true,
     "ignored_packages":
     [
+        "LSP-rust-analyzer",
+        "Rust",
         "Vintage",
     ],
     "mini_diff": false,

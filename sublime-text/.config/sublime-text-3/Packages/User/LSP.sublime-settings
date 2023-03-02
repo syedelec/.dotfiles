@@ -22,7 +22,12 @@
     },
     "show_symbol_action_links": true,
     "diagnostics_gutter_marker": "sign",
-    "show_diagnostics_highlights": true,
+    "diagnostics_highlight_style": {
+        "error": "box",
+        "warning": "box",
+        "info": "box",
+        "hint": "box"
+    },
     "document_highlight_style": "underline",
     "inhibit_snippet_completions": true,
     "inhibit_word_completions": true,
