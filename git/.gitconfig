@@ -38,6 +38,12 @@
     path = ~/.gitconfig.specific
     path = ~/.gitalias
 
+[commit]
+    gpgsign = true
+
+[tag]
+    gpgsign = true
+
 [credential]
     # store : Store credentials indefinitely on disk
     # cache : Cache credentials in memory for a short period of time
