@@ -1,5 +1,6 @@
 [
     { "keys": ["f10"], "command": "toggle_menu"},
+    { "keys": ["ctrl+f1"], "command": "toggle_side_bar" },
     { "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" },
     { "keys": ["ctrl+j"], "command": "git_gutter_next_change" },
     { "keys": ["ctrl+k"], "command": "git_gutter_prev_change" },
