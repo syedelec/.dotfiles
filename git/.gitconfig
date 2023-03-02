@@ -15,7 +15,6 @@
 [core]
     filemode = true
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-    editor = "${EDITOR}"
     attributesfile = ~/.gitattributes
     excludesfile = ~/.gitignore
     autocrlf = input
