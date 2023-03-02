@@ -23,6 +23,7 @@ alias lls='ls -hAl --group-directories-first'
 alias mount='mount | column -t'
 alias mkdir='mkdir -pv'
 alias ping='ping -c 3'
+alias lsblk='lsblk -p -o NAME,FSTYPE,LABEL,UUID,FSAVAIL,FSUSE%,MOUNTPOINT'
 
 alias m='make -s -j`getconf _NPROCESSORS_ONLN`'
 alias tree='LC_COLLATE=C tree -aC -I ".git|node_modules|bower_components|plugged|__pycache__|CMakeFiles" --dirsfirst'
