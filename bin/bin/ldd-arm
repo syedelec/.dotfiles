@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/core.lib.sh
+
+
+ldd-arm() {
+    _OBJDUMP="arm-linux-gnueabihf-objdump"
+    _READELF="arm-linux-gnueabihf-readelf"
+    __check_binary__ ${_OBJDUMP} ${_READELF} || return 1
+    __check_no_args__ "${@}" || return 1
+
+    echo "note: output of ${_READELF}"
+    ${_READELD} -a "${1}" | grep "Shared library:"
+    ${_OBJDUMP} -x "${1}" | grep NEEDED
+}
+
+ldd-arm ${@}
+
