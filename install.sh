@@ -77,7 +77,7 @@ pacman_tools=(
     docker openssl wget curl git ripgrep uncrustify valgrind mplayer
     fd bat fzf rofi stow the_silver_searcher tree yay lynx firefox
     cmus cppcheck shellcheck meld android-tools neofetch cargo efitools
-    deluge minicom evince dialog tk jq sd diff-so-fancy pandoc texlive-core
+    deluge minicom evince dialog tk jq sd diff-so-fancy texlive-core
     bash-language-server python-language-server clangd jdk11-openjdk
     jre11-openjdk binwalk tree-sitter
 )
@@ -107,7 +107,7 @@ pacman_lib=(
 yay_tools=(
     bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
     zoxide-bin navi-bin duf-bin neovim-nightly-bin teams teamviewer
-    cling just-bin libtree bear gdu
+    cling just-bin libtree bear gdu pandoc-bin
 )
 yay_customization=(
     paper-icon-theme i3lock-fancier-git colorpicker
