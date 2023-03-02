@@ -69,9 +69,9 @@ pacman_groups=(
     base base-devel dlang-dmd multilib-devel go rust-src
 )
 pacman_utils=(
-    cpio unzip cmake xclip xsel xterm unzip evtest cairo net-tools pam
-    xcb-util-image xcb-util-keysyms tk dos2unix ncdu cups help2man repo
-    nmap gnu-netcat lsof detox unzip sshfs lzop aspell-en bind-tools ctags
+    cpio unzip cmake xclip xsel xterm evtest cairo net-tools pam
+    xcb-util-image xcb-util-keysyms tk dos2unix gdu cups help2man repo
+    nmap gnu-netcat lsof detox sshfs lzop aspell-en bind-tools ctags
     boost catch2 fmt mbedtls nlohmann-json acpica dtc autoconf-archive
 )
 pacman_dev=(
@@ -80,27 +80,20 @@ pacman_dev=(
     python-pip
 )
 pacman_tools=(
-    docker openssl wget curl git ripgrep uncrustify valgrind mplayer
-    fd bat fzf rofi stow the_silver_searcher tree yay lynx firefox
-    cmus cppcheck shellcheck meld android-tools neofetch cargo efitools
-    deluge minicom evince dialog tk jq sd diff-so-fancy texlive-core
-    bash-language-server python-lsp-server clang jdk11-openjdk
-    jre11-openjdk binwalk tree-sitter duf tokei
+    docker openssl wget curl git ripgrep uncrustify valgrind mplayer sd
+    fd bat fzf rofi stow tree yay lynx firefox cmus cppcheck shellcheck
+    meld android-tools cargo efitools deluge evince dialog tokei binwalk
+    jq diff-so-fancy texlive-core bash-language-server python-lsp-server
+    clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
+    mattermost-desktop whois
 )
 pacman_customization=(
-    arc-gtk-theme bash-completion feh
-)
-pacman_gnome=(
-    gnome-tweaks
-)
-pacman_music=(
-    mpd mpc
+    arc-gtk-theme bash-completion feh neofetch gnome-tweaks
 )
 pacman_fonts=(
     ttf-roboto ttf-roboto-mono ttf-font-awesome ttf-fira-code ttf-fira-sans
-    ttf-fira-mono ttf-lato ttf-material-icons ttf-droid cantarell-fonts
-    bdf-unifont terminus-font nerd-fonts-terminus noto-fonts
-    ttf-nerd-fonts-symbols
+    ttf-fira-mono ttf-lato ttf-droid cantarell-fonts
+    terminus-font ttf-terminus-nerd noto-fonts
 )
 pacman_lib=(
     libcurl-compat libev libx11 libxkbcommon-x11 gnu-efi-libs
@@ -111,9 +104,10 @@ pacman_lib=(
 #########
 
 yay_tools=(
-    bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
-    zoxide navi-bin neovim-nightly-bin teams teamviewer tio
-    cling libtree bear gdu pandoc-bin
+    google-chrome teams teamviewer
+)
+yay_utils=(
+    bfs dtrx bitwise zoxide navi-bin tio cling-git libtree
 )
 yay_customization=(
     paper-icon-theme colorpicker
@@ -134,48 +128,56 @@ pip_packages=(
 yay_args="--needed --noconfirm --nocleanmenu --nodiffmenu --noeditmenu"
 pacman_args="--needed --noconfirm"
 
-# update current packages
-sudo pacman ${pacman_args} -Syyu 1>/dev/null
+echo "======= Update current packages ======="
+
+sudo pacman ${pacman_args} -Syyu
+
+echo "======= Install groups ======="
 
 # for groups we need to install one by one
 for group in ${pacman_groups[*]}; do
-    sudo pacman -S ${pacman_args} ${group} 1>/dev/null
+    sudo pacman -S ${pacman_args} ${group}
 done
+
+echo "======= Install 'ARCH' packages ======="
 
 sudo pacman -Sy ${pacman_args}           \
     ${pacman_utils[*]}                   \
     ${pacman_dev[*]}                     \
     ${pacman_tools[*]}                   \
     ${pacman_customization[*]}           \
-    ${pacman_gnome[*]}                   \
-    ${pacman_lib[*]}                     \
-    1>/dev/null
+    ${pacman_fonts[*]}                   \
+    ${pacman_lib[*]}
+
+echo "======= Install 'AUR' packages ======="
 
 yay -Sy ${yay_args}                      \
     ${yay_tools[*]}                      \
-    ${yay_customization[*]}              \
-    1>/dev/null
+    ${yay_utils[*]}                      \
+    ${yay_customization[*]}
 
-pip2 install --user --upgrade pip
+echo "======= Install 'PYTHON' packages ======="
+
 pip3 install --user --upgrade pip
-pip2 install --user ${pip_packages[*]} 1>/dev/null
-pip3 install --user ${pip_packages[*]} 1>/dev/null
+pip3 install --user ${pip_packages[*]}
 
 ###############################################################################
 #                                architecture                                 #
 ###############################################################################
+
+echo "======= Setup 'DIRS' ======="
+
 # ├── devel
-# │   ├── personal
-# │   └── repos
-# │       ├── dev
-# │       ├── embedded
-# │       ├── tools
-# │       └── ui
-# ├── .toolchains
-# │   └── [version]
-# │       ├── aarch32
-# │       └── aarch64
-# │
+# │    ├── personal
+# │    └── repos
+# │        ├── dev
+# │        ├── embedded
+# │        ├── tools
+# │        └── ui
+# └── .toolchains
+#      └── [version]
+#         ├── aarch32
+#         └── aarch64
 
 mkdir -p "${DIR_PERSONAL}"
 
@@ -191,14 +193,23 @@ mkdir -p "${DIR_ARM_64_TOOLCHAIN}"
 #                                 toolchains                                  #
 ###############################################################################
 
-wget -cO- "${URL_ARM_32_TOOLCHAIN_11_2}" | \
-    tar xf - -J -C "${DIR_ARM_32_TOOLCHAIN}" --strip-components=1
-wget -cO- "${URL_ARM_64_TOOLCHAIN_11_2}" | \
-    tar xf - -J -C "${DIR_ARM_64_TOOLCHAIN}" --strip-components=1
+echo "======= Install toolchains ======="
+
+if [[ ! -d "${DIR_ARM_32_TOOLCHAIN}" ]]; then
+    wget -cO- "${URL_ARM_32_TOOLCHAIN_11_2}" | \
+        tar xf - -J -C "${DIR_ARM_32_TOOLCHAIN}" --strip-components=1
+fi
+
+if [[ ! -d "${DIR_ARM_64_TOOLCHAIN}" ]]; then
+    wget -cO- "${URL_ARM_64_TOOLCHAIN_11_2}" | \
+        tar xf - -J -C "${DIR_ARM_64_TOOLCHAIN}" --strip-components=1
+fi
 
 ###############################################################################
 #                                 activation                                  #
 ###############################################################################
+
+echo "======= Install dotfiles ======="
 
 if [[ ! -d "${DIR_DOTFILES}" ]]; then
     git clone --recursive "${REPO_DOTFILES}" "${DIR_DOTFILES}" 1>/dev/null
@@ -212,21 +223,14 @@ fi
 #                               gnome settings                                #
 ###############################################################################
 
-sed "s|##HOME##|$HOME|g" .gnome/org.gnome.ini > ${TEMP_GNOME_CONFIG}
+echo "======= Setup 'GNOME' ======="
+
+cp .gnome/org.gnome.ini ${TEMP_GNOME_CONFIG}
 dconf load /org/gnome/ < ${TEMP_GNOME_CONFIG}
 
 # dynamically set background/screensaver image
 gsettings set org.gnome.desktop.background picture-uri file://${BACKGROUND_IMAGE}
 gsettings set org.gnome.desktop.screensaver picture-uri file://${SCREENSAVER_IMAGE}
-
-# disable workspace keybindings
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['']"
-
-# disable top left hot corner
-gsettings set org.gnome.desktop.interface enable-hot-corners false
 
 sudo dconf update
 
@@ -236,19 +240,22 @@ rm -f ${TEMP_GNOME_CONFIG}
 #                                  services                                   #
 ###############################################################################
 
+echo "======= Setup 'SYSTEMD' ======="
+
 sudo systemctl enable sshd
 
-sudo systemctl enable docker
-
 sudo systemctl disable bluetooth
+sudo systemctl disable cups
+sudo systemctl disable docker
 
 grep -q docker /etc/group || sudo groupadd docker
 sudo usermod -aG docker ${USER}
-sudo usermod -aG uucp ${USER}
 
 ###############################################################################
 #                               build terminal                                #
 ###############################################################################
+
+echo "======= Setup 'TERMINAL' ======="
 
 if [[ ! -d "${DIR_REPOS_TOOLS}/tilix" ]]; then
     git clone --recursive "${REPO_TILIX}" "${DIR_REPOS_TOOLS}/tilix" 1>/dev/null
@@ -266,4 +273,4 @@ fi
 
 # nvim -c 'PlugInstall --sync' -c '<\CR>' -c 'qa'
 
-echo "Installation done!"
+echo "======= Installation done ======="
