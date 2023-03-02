@@ -73,7 +73,7 @@ __fzf_find() {
     # --delimiter=: --nth -1.. looks only for search results and not filenames
     local -r regex="(^$|^.$|^(\s+|\"\s+)\})"
     files=$(rg --column --no-heading -v "${regex}" --color=always    |
-            fzf -0 -m --ansi --tiebreak=end -n 3.. -d : -q "'${*:-}" \
+            fzf -0 -m --ansi -n 3.. -d : -q "'${*:-}"                \
                 --preview 'bat --highlight-line {2} {1}'             \
                 --preview-window +{2}-/2                             |
             awk -F: '{print ":e "$1"|:"$2}')
@@ -91,7 +91,7 @@ __fzf_find() {
 # jump to recent folders using `zoxide`
 f() {
     local dir
-    dir="$(zoxide query -l | fzf -1 -0 +m -q "'")" &&
+    dir="$(zoxide query -l "${1}" | fzf -1 -0 +m -q "'")" &&
         cd "${dir}" || return 1
 }
 
