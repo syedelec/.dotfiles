@@ -13,7 +13,9 @@ diff-patch() {
 
     local patch="${1:-0000-patch-from-diff.diff}"
 
-    git diff --no-color > ${patch}
+    git add -A
+    git diff --patch --no-color --cached > ${patch}
+    git reset &> /dev/null
     echo "success: generated a patch from diff to \"${patch}\""
 }
 
