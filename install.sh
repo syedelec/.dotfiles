@@ -107,7 +107,7 @@ pacman_lib=(
 yay_tools=(
     bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
     zoxide-bin navi-bin duf-bin neovim-nightly-bin teams teamviewer
-    cling just-bin libtree bear
+    cling just-bin libtree bear gdu
 )
 yay_customization=(
     paper-icon-theme i3lock-fancier-git colorpicker

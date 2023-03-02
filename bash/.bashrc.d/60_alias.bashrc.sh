@@ -32,6 +32,7 @@ alias dtrx='dtrx --noninteractive'
 
 # -rr - read-only mode (prevents delete and spawn shell)
 alias ncdu='ncdu -rr -x -X ~/.ignore'
+alias gdu='gdu -x -p -c -i /root,/mnt'
 
 # fix typos
 alias l='ll'
