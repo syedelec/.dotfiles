@@ -1,0 +1,19 @@
+[
+    { "keys": ["f10"], "command": "toggle_menu"},
+    { "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" },
+    { "keys": ["ctrl+j"], "command": "git_gutter_next_change" },
+    { "keys": ["ctrl+k"], "command": "git_gutter_prev_change" },
+    {
+        "command": "lsp_symbol_rename",
+        "keys": [
+            "ctrl+shift+e"
+        ],
+        "context": [
+            {
+                "key": "lsp.session_with_capability",
+                "operator": "equal",
+                "operand": "renameProvider"
+            }
+        ]
+    },
+]

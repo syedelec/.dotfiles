@@ -1,0 +1,31 @@
+{
+    "always_show_minimap_viewport": true,
+    "auto_complete_delay": 0,
+    "caret_extra_bottom": 0,
+    "caret_extra_top": 0,
+    "caret_extra_width": 0,
+    "caret_style": "phase",
+    "theme": "ayu-mirage.sublime-theme",
+    "color_scheme": "Packages/Nord/Nord.sublime-color-scheme",
+    "drag_text": false,
+    "font_face": "Envy Code R",
+    "font_options":
+    [
+        "no_italic",
+        "no_bold"
+    ],
+    "font_size": 10,
+    "highlight_line": true,
+    "ignored_packages":
+    [
+        "Vintage",
+    ],
+    "mini_diff": false,
+    "show_definitions": false,
+    "show_encoding": true,
+    "show_tab_close_buttons": false,
+    "update_check": false,
+    "show_git_status_in_status_bar": false,
+    "show_line_endings": true,
+    "draw_unicode_white_space": "all",
+}

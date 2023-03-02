@@ -1,0 +1,5 @@
+// These settings override both User and Default settings for the C++ syntax
+{
+    // Columns in which to display vertical rulers
+    "rulers": [80],
+}

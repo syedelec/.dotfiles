@@ -1,0 +1,7 @@
+// GitGutter Settings - User
+{
+    "show_in_minimap": -1,
+    "show_line_annotation": "false",
+    "debounce_delay": 50,
+    "show_status_bar_text": false,
+}
