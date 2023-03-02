@@ -25,7 +25,7 @@ alias mkdir='mkdir -pv'
 alias ping='ping -c 3'
 alias lsblk='lsblk -p -o NAME,FSTYPE,LABEL,UUID,FSAVAIL,FSUSE%,MOUNTPOINT'
 
-alias m='[ -f "Makefile" ] && make -s -j`getconf _NPROCESSORS_ONLN` || echo "fatal: no Makefile"'
+alias m='[ -f "Makefile" ] && make -s -j`getconf _NPROCESSORS_ONLN`'
 alias tree='LC_COLLATE=C tree -aC -I ".git|node_modules|bower_components|plugged|__pycache__|CMakeFiles" --dirsfirst'
 alias gtree='git ls-tree -r --name-only HEAD | LC_COLLATE=C \tree -aC --fromfile --dirsfirst'
 alias dtrx='dtrx --noninteractive'
