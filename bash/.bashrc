@@ -44,6 +44,7 @@ shopt -s no_empty_cmd_completion
 HISTCONTROL=ignoreboth:erasedups
 
 # unlimited bash history
+HISTFILE="${HOME}/.history"
 HISTSIZE=
 HISTFILESIZE=
 
