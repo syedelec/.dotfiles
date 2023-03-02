@@ -54,9 +54,13 @@
 *                                   xterm                                    *
 ******************************************************************************/
 
-xterm*faceName:       xft:Envy Code R:style=Regular:size=10:antialias=true
-xterm*allowBoldFonts: false
-xterm*decTerminalID:  vt340
+xterm*faceName:            xft:Envy Code R:style=Regular:size=10:antialias=true
+xterm*allowBoldFonts:      false
+xterm*decTerminalID:       vt340
+XTerm*selectToClipboard:   true
+xterm*VT100.Translations:  #override \
+                           Ctrl Shift <Key>V:    insert-selection(SELECT) \n\
+                           Ctrl Shift <Key>C:    copy-selection(SELECT)
 
 /******************************************************************************
 *                                   URxvt                                    *
