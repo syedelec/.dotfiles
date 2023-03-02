@@ -85,7 +85,7 @@ __fzf_find() {
 
 # jump to recent folders using `zoxide` if given argument, filter
 # output of `zoxide` using `fzf`
-fd() {
+f() {
     local dir
     dir="$(zoxide query -l | fzf -1 -0 +m -q "'")" &&
         cd "${dir}" || return 1
@@ -93,7 +93,7 @@ fd() {
 
 # cd into the directory of the selected file using `fzf` and `rg`
 # need to reset FZF_DEFAULT_COMMAND to include all files
-fdf() {
+ff() {
     local file
     local dir
     file=$(fzf --tiebreak=length,end -n -1.. -d / +m -q "'$1" -1 -0) &&
@@ -101,7 +101,7 @@ fdf() {
 }
 
 # cd to selected parent directory using `fzf`
-fdp() {
+fp() {
     local declare dirs=()
     get_parent_dirs() {
         if [[ -d "${1}" ]]; then dirs+=("${1}"); else return; fi
