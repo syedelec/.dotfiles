@@ -27,7 +27,12 @@ delete-commit() {
         return 1
     fi
 
-    git rebase --rebase-merges --onto ${commit}^ ${commit} &> /dev/null
+    git rebase --rebase-merges --onto ${commit}^ ${commit} 1> /dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: command failed"
+        return 1
+    fi
+
     echo "success: delete-commit"
     return 0
 }
