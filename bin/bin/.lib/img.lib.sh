@@ -40,20 +40,17 @@ __img_rotate__() {
         output_image="${input_path_filename}_rotated.${input_extension}"
     else
         local output_folder=${3}
-        [ -d ${output_folder} ] || mkdir ${output_folder} &> /dev/null
+        [ -d ${output_folder} ] || mkdir -p ${output_folder} &> /dev/null
         output_image="${output_folder}/${input_filename}_rotated.${input_extension}"
     fi
 
-    echo "output: ${output_image}"
-
-    # convert ${input_image} -rotate 90 ${output_image}
-
-    # if [ $? -eq 0 ]; then
-    #     echo "success: rotated image ${input_name} with angle=${angle}"
-    # else
-    #     echo "fatal: error during processing"
-    #     echo "    usage: $ ${FUNCNAME[0]} <[+/-]angle> <input>"
-    #     return 1
-    # fi
+    convert ${input_image} -rotate ${angle} ${output_image}
+    if [ $? -eq 0 ]; then
+        echo "success: rotated image ${input_name} with angle=${angle}"
+    else
+        echo "fatal: error during processing"
+        echo "    usage: $ ${FUNCNAME[0]} <[+/-]angle> <input>"
+        return 1
+    fi
 }
 
