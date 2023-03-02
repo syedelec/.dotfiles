@@ -66,7 +66,7 @@ pacman_utils=(
     cpio unzip cmake xclip xsel xterm unzip evtest cairo net-tools pam
     xcb-util-image xcb-util-keysyms tk dos2unix ncdu cups help2man repo
     nmap gnu-netcat lsof detox unzip sshfs lzop aspell-en bind-tools ctags
-    boost catch2 fmt mbedtls nlohmann-json
+    boost catch2 fmt mbedtls nlohmann-json acpica
 )
 pacman_dev=(
     vim
