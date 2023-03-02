@@ -103,7 +103,8 @@ pacman_lib=(
 #########
 
 yay_tools=(
-    bfs dtrx slack-desktop google-chrome sublime-text-dev gotop bitwise zoxide
+    bfs dtrx slack-desktop google-chrome sublime-text-dev gotop bitwise
+    zoxide-bin
 )
 yay_customization=(
     paper-icon-theme i3lock-fancier-git colorpicker
