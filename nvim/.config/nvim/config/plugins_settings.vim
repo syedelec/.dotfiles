@@ -549,9 +549,10 @@ EOF
           \ ]
 
     let g:startify_commands = [
-        \ {'U': ['update plugins', 'PlugUpdate']},
-        \ {'I': ['install plugins', 'PlugInstall']},
-        \ {'C': ['check health', 'checkhealth']},
+        \ {'P': ['Update vim-plug', 'PlugUpgrade']},
+        \ {'U': ['Update plugins', 'PlugUpdate']},
+        \ {'I': ['Install plugins', 'PlugInstall']},
+        \ {'C': ['Check health', 'checkhealth']},
         \ ]
 
     let g:startify_change_to_dir = 1
