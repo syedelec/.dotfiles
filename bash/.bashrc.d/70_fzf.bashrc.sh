@@ -153,7 +153,7 @@ __fzf_commit() {
     # for commit in "${commits[@]}"; do
     #     __readline_insert__ "${commit} "
     # done
-    [ -n "${commits[@]}" ] && __readline_insert__ "${commits[@]}"
+    [[ -n "${commits[@]}" ]] && __readline_insert__ "${commits[@]}"
 }
 
 ###############################################################################
