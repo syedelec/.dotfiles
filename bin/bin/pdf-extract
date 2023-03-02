@@ -20,7 +20,7 @@ __pdf_extract() {
     pages=("${@}")
     pages_commas=$(IFS=, ; echo "${pages[*]}")
 
-    qpdf --empty --pages ${input_pdf} ${pages_commas[*]} -- ${output_pdf}
+    qpdf --empty --pages "${input_pdf}" ${pages_commas[*]} -- ${output_pdf}
     [ $? -eq 0 ] || return 1 &&
         echo "success: extracted pages ${pages[@]} from ${input_pdf} to ${output_pdf}"
 }
