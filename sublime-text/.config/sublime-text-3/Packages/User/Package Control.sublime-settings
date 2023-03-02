@@ -17,6 +17,7 @@
 		"Kconfig Syntax Highlight",
 		"LSP",
 		"LSP-bash",
+		"LSP-dockerfile",
 		"LSP-json",
 		"LSP-pylsp",
 		"Nord",
