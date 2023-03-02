@@ -76,3 +76,20 @@ __check_process_running__() {
     done
 }
 
+__set_root_binary__() {
+    __check_no_args__ "${@}" || return 1
+
+    local q=""
+
+    q+="[warning]"$'\n'
+    q+="There will be potential security issues on root binaries"$'\n'
+    q+="Proceed [Yy/Nn] ? "
+    __question__ "${q}" || return 0
+
+    local -r binaries=("${@}")
+    for binary in "${binaries[@]}"; do
+        __check_binary__ ${binary} || continue
+        sudo chown root ${binary}
+        sudo chmod 4755 ${binary}
+    done
+}
