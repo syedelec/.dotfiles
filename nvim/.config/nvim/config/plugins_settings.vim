@@ -31,13 +31,6 @@
     let g:loaded_zipPlugin = 1
 " }
 
-" completion-nvim {
-    " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
-    let g:completion_enable_snippet = 'UltiSnips'
-    " let g:completion_enable_fuzzy_match = 1
-    " let g:diagnostic_enable_virtual_text = 1
-" }
-
 " nvim-lsp {
 lua << EOF
     local on_attach = function(_, bufnr)
@@ -55,18 +48,12 @@ lua << EOF
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<cr>', opts)
     end
-
-    require'lspconfig'.pylsp.setup {
-        on_attach = require'completion'.on_attach
-    }
-    require'lspconfig'.clangd.setup {
-        cmd = { "clangd", "--background-index" },
-        on_attach = on_attach
-    }
-    require'lspconfig'.bashls.setup {
-        on_attach = require'completion'.on_attach
-    }
 EOF
+" }
+
+" coq_nvim {
+    let g:coq_settings = { 'display.icons.mode': 'none' }
+    let g:coq_settings = { 'auto_start': 'shut-up' }
 " }
 
 " nvim-treesitter {

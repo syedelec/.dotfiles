@@ -79,7 +79,8 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Built-in LSP
     Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-lua/completion-nvim'
+    Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
     Plug 'ojroques/nvim-lspfuzzy'
 
     " Fast left-right movement
