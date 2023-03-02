@@ -2,8 +2,8 @@
     { "keys": ["f10"], "command": "toggle_menu"},
     { "keys": ["ctrl+f1"], "command": "toggle_side_bar" },
     { "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" },
-    { "keys": ["ctrl+j"], "command": "git_gutter_next_change" },
-    { "keys": ["ctrl+k"], "command": "git_gutter_prev_change" },
+    { "keys": ["ctrl+up"], "command": "git_gutter_next_change" },
+    { "keys": ["ctrl+down"], "command": "git_gutter_prev_change" },
     { "keys": ["ctrl+shift+alt+z"], "command": "git_gutter_revert_change" },
     {
         "command": "lsp_symbol_rename",

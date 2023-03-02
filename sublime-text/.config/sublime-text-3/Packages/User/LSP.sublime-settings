@@ -9,16 +9,20 @@
                 "clangd",
                 "--header-insertion=never"
             ],
-            "enabled": true
+            "enabled": true,
         },
         "lsp-bash":
         {
-            "enabled": false
+            "enabled": true,
         },
         "pyls":
         {
-            "enabled": true
-        }
+            "enabled": true,
+        },
+        "rust-analyzer":
+        {
+            "enabled": true,
+        },
     },
     "show_symbol_action_links": true,
     "diagnostics_gutter_marker": "sign",
@@ -26,7 +30,7 @@
         "error": "box",
         "warning": "box",
         "info": "box",
-        "hint": "box"
+        "hint": "box",
     },
     "document_highlight_style": "underline",
     "inhibit_snippet_completions": true,
