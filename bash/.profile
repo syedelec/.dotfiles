@@ -44,12 +44,12 @@ export EDITOR="$(which nvim || which vim || which subl || which subl3)"
 export GIT_EDITOR="${EDITOR}"
 export BROWSER="$(which firefox || which google-chrome-stable || which opera)"
 
-# set PATH so it includes user's private bin if it exists
-PATH_HOME_BIN="${HOME}/bin"
-PATH_LOCAL_BIN="${HOME}/.local/bin"
-PATH_GENERIC="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
-
-export PATH="${PATH}:${PATH_GENERIC}:${PATH_HOME_BIN}:${PATH_LOCAL_BIN}"
+# set PATH so it includes user's private bin if it exists and remove duplicates
+PATH="${PATH}:${HOME}/bin"
+PATH_TMP=$(printf %s "$PATH" |
+           awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}' |
+           tr -s ':')
+export PATH="${PATH_TMP}"
 
 # local language
 export LANGUAGE="en_US:en"
