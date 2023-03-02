@@ -1,0 +1,10 @@
+% zip, compression
+
+# create a zip containing files
+zip <name>.zip <files>
+
+# create a zip containing folder
+zip -r <folder>.zip <folder>
+
+$ files: command fd --type f --hidden --max-depth 1
+$ folder: command fd --type d --hidden --max-depth 1

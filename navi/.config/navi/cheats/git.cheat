@@ -1,0 +1,15 @@
+% git
+
+# update all submodules
+git submodule update --init --recursive
+
+# create annotated tag [force]
+git tag -af "<tag>" -m "<tag_msg>"
+
+# create lightweight tag [force]
+git tag -f "<tag>"
+
+# delete remote tag
+git push --delete origin <remote_tag>
+
+$ remote_tag: git ls-remote --tags --refs origin | sed 's/.*refs\/tags\///'

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/core.lib.sh
+
+
+mount_img() {
+    __check_binary__ blkid mount || return 1
+    if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+        echo "fatal: wrong arguments provided"
+        echo "usage: $(basename ${0}) <filesystem> [<directory>]"
+        return 1
+    fi
+
+    local dir="${2}"
+    local file="${1}"
+
+    __check_files_exist__ "${file}" || return 1
+    [ -z "${dir}" ] || dir="mnt-point"
+
+    fs="$(blkid -o value -s TYPE ${file})"
+
+    mkdir "${dir}" &> /dev/null
+    sudo mount -t "${fs}" -o loop "${file}" "${dir}" || {
+        echo "fatal: error mounting"
+        echo ">> sudo mount -t \"${fs}\" -o loop \"${file}\" \"${dir}\""
+        # local q=""
+        # q+="[warning]"$'\n'
+        # q+="Invalid filesystem: \"${pdf}\""$'\n'
+        # q+="Try repairing ?"$'\n'
+        # q+="Proceed [Yy/Nn] ? "
+        # __question__ "${q}" && {
+        #     sudo fsck.${fs} -y "${file}"
+        # }
+        return 1
+    }
+
+    echo "success: ${file} mounted to ${dir}"
+}
+
+mount_img ${@}
+

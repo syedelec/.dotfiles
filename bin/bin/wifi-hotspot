@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/net.lib.sh
+
+
+wifi_hotspot() {
+    __check_binary__ nmcli iw || return 1
+    if [ $# -ne 2 ]; then
+        echo "fatal: no arguments supplied"
+        echo "    usage: $ $(basename ${0}) <hotspot> <password>"
+        return 1
+    fi
+
+    local hotspot="${1}"
+    local password="${2}"
+    local wifi_interface="$(__get_wifi_interface)"
+
+    __enable_wifi
+
+    nmcli device wifi hotspot           \
+          ifname ${wifi_interface}      \
+          ssid ${hotspot}               \
+          password ${password}
+    [ $? -eq 0 ] && echo "success: hotspot ${hotspot} created" || {
+        echo "fatal: could not create hotspot"
+        return 1
+    }
+}
+
+wifi_hotspot ${@}

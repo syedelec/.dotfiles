@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+amend() {
+    __is_git_repo__ || return 1
+
+    [ -n "$(git status -s)" ] || {
+        echo "note: repository clean, nothing to amend"
+        return 1
+    }
+
+    __check_untracked__
+    files=("${@}")
+
+    if [ $# -gt 0 ]; then
+        __check_files_exist__ ${files[@]} || return 1
+        git add -f ${files[@]}
+        git commit --amend --no-edit &> /dev/null
+    else
+        [ -n "$(git -C $(git root) ls-files -m)" ] || {
+            echo "note: no modified files, nothing to amend"
+            return 1
+        }
+        git commit --all --amend --no-edit &> /dev/null
+    fi
+    echo "success: amend to \"`git log -n 1 --pretty=format:%s HEAD`\""
+}
+
+amend "${@}"
+

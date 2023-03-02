@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/pdf.lib.sh
+
+__pdf_extract() {
+    __check_binary__ qpdf || return 1
+    if [ $# -lt 2 ]; then
+        echo "fatal: wrong arguments provided"
+        echo "usage: $ $(basename ${0}) <input.pdf> <1 2 3 6-9>"
+        return 1
+    fi
+
+    local pages
+    local output_pdf="output_extracted.pdf"
+
+    local input_pdf="${1}"
+    __check_pdf__ "${input_pdf}" || return 1
+
+    shift --
+    pages=("${@}")
+    pages_commas=$(IFS=, ; echo "${pages[*]}")
+
+    qpdf --empty --pages ${input_pdf} ${pages_commas[*]} -- ${output_pdf}
+    [ $? -eq 0 ] || return 1 &&
+        echo "success: extracted pages ${pages[@]} from ${input_pdf} to ${output_pdf}"
+}
+
+__pdf_extract "${@}"
+

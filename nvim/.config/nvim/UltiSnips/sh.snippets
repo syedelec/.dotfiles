@@ -1,0 +1,148 @@
+priority -50
+
+global !p
+import vim
+
+# Tests for the existence of a variable declared by Vim's filetype detection
+# suggesting the type of shell script of the current file
+def testShell(scope, shell):
+	return vim.eval("exists('" + scope + ":is_" + shell + "')")
+
+# Loops over the possible variables, checking for global variables
+# first since they indicate an override by the user.
+def getShell():
+	for scope in ["g", "b"]:
+		for shell in ["bash", "posix", "sh", "kornshell"]:
+			if testShell(scope, shell) == "1":
+				if shell == "kornshell":
+					return "ksh"
+				if shell == "posix":
+					return "sh"
+				return shell
+	return "sh"
+endglobal
+
+snippet env "#!/usr/bin/env (!env)"
+`!p snip.rv = '#!/usr/bin/env ' + getShell() + "\n\n" `
+endsnippet
+
+snippet for "for ... done (for)"
+for (( i = 0; i < ${1:10}; i++ )); do
+	${0:#statements}
+done
+endsnippet
+
+snippet forin "for ... in ... done (forin)"
+for ${1:i}${2/.+/ in /}${2:words}; do
+	${0:#statements}
+done
+endsnippet
+
+snippet if "if ... then (if)"
+if ${2:[[ ${1:condition} ]]}; then
+	${0:#statements}
+fi
+endsnippet
+
+snippet if_no_args "if [ $# -eq 0 ] ..."
+if [ $# -eq 0 ]; then
+	echo "fatal: no arguments supplied"
+	return 1
+fi
+endsnippet
+
+snippet if_d "-d dir - check for directory"
+if [ -d "${${1:DIRECTORY}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_e "-e file - check for file regardless of type (node, directory, socket, etc.)"
+if [ -e "${${1:FILE}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_f "-f file - check regular file"
+if [ -f "${${1:FILE}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_r "-r file - check if file is a readable"
+if [ -r "${${1:FILE}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_s "-s file - check file non empty"
+if [ -s "${${1:FILE}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_str_len "The length of string > 0"
+if [ -n "${${1:STRING}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_str_empty "The length of string = 0"
+if [ -z "${${1:STRING}}" ]; then
+	${2:#statements}
+fi
+endsnippet
+
+snippet if_str_eq "if string == string"
+if [ "${${1:STRING}}" = "${${2:STRING}}" ]; then
+	${3:#statements}
+fi
+endsnippet
+
+snippet if_str_neq "if string != string"
+if [ "${${1:STRING}}" != "${${2:STRING}}" ]; then
+	${3:#statements}
+fi
+endsnippet
+
+snippet usage "Usage: ..."
+usage() {
+	${1:echo} "Usage:"
+	$1 "     -${2:o} | --${3:option}                 ${4:Options description message}"
+	$1 "     -h | --help                   Display this help message"
+	exit 0
+}
+endsnippet
+
+snippet func-sh "define shell script function"
+${1:function_name}() {
+	${0:# function_body}
+}
+endsnippet
+
+snippet func-bash "define bash script function"
+function ${1:function_name}() {
+	${0:# function_body}
+}
+endsnippet
+
+snippet switch..case "switch case in shell script"
+case "${1:argument}" in
+	"*${2:arg1}*")
+		;;
+	"*${3:arg2}*")
+		;;
+	*)
+		;;
+esac
+endsnippet
+
+snippet temp "Tempfile" b
+${1:TMPFILE}="$(mktemp -t ${3:--suffix=${4:.SUFFIX}} ${2:`!p
+snip.rv = re.sub(r'[^a-zA-Z]', '_', snip.fn) or "untitled"
+`}.XXXXXX)"
+${5:${6/(.+)/trap "/}${6:rm -f '$${1/.*\s//}'}${6/(.+)/" 0               # EXIT\n/}${7/(.+)/trap "/}${7:rm -f '$${1/.*\s//}'; exit 1}${7/(.+)/" 2       # INT\n/}${8/(.+)/trap "/}${8:rm -f '$${1/.*\s//}'; exit 1}${8/(.+)/" 1 15    # HUP TERM\n/}}
+
+endsnippet
+
+# vim:ft=snippets:

@@ -1,0 +1,7 @@
+{
+    "suggest.noselect": false,
+    "suggest.minTriggerInputLength": 2,
+    "suggest.acceptSuggestionOnCommitCharacter": true,
+    "snippets.shortcut": "[snippets]",
+    "suggest.snippetIndicator": ""
+}

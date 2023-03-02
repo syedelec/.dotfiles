@@ -1,0 +1,36 @@
+# path for plugins used by vim-bundles
+nvim/.config/nvim/bundles/
+
+# path for plugins used by dein
+nvim/.config/nvim/plugins/
+
+# path for plugins used by vim-plug
+nvim/.config/nvim/plugged/
+
+# path for autoloadplugins
+nvim/.config/nvim/autoload/
+
+# path for vim-plug *download more recent version*
+nvim/.config/nvim/autoload/plug.vim
+
+# path for cmus
+cmus/.config/cmus/
+
+# path to gtk bookmarks
+gtk/.config/gtk-3.0/bookmarks
+
+# python cache __pycache__
+__pycache__
+
+# files
+*.old
+
+# navi is still in testing
+bin/bin/navi
+
+# mpd
+mpd/.config/mpd/*
+
+# fonts
+fonts/.local/share/fonts/.uuid
+

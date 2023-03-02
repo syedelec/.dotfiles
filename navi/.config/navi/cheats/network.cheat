@@ -1,0 +1,16 @@
+% network, IP
+
+# find public IP address
+echo <public_ip>
+
+# find local IP address
+echo <local_ip>
+
+# find location base on IP
+curl -s ipinfo.io/<public_ip> | jq .
+
+# connect to wifi using NetworkManager
+nmcli device wifi connect <ssid> password <password>
+
+$ public_ip: curl -s ifconfig.me
+$ local_ip: ip route get 8.8.8.8 | head -1 | awk '{print $7}'

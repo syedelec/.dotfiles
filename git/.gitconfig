@@ -1,0 +1,126 @@
+# [color]
+#     The value for these configuration variables is a list of colors
+#     (at most two) and attributes (at most one), separated by spaces.
+#     The colors accepted are:
+#       normal, black, red, green, yellow, blue, magenta, cyan and white;
+#     the attributes are:
+#       bold, dim, ul, blink and reverse.
+#
+#     The first color given is the foreground; the second is the background.
+#     The position of the attribute, if any, doesn't matter.
+
+# filemode: Ensure executable bit of files in the working tree is to
+# be honored.
+
+[core]
+    filemode = true
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    editor = "${EDITOR}"
+    attributesfile = ~/.gitattributes
+    excludesfile = ~/.gitignore
+    autocrlf = input
+    abbrev = 8
+
+[branch]
+    autosetuprebase = always
+
+[user]
+    name = Sid-Ali Teir
+    userconfigonly = true
+
+[github]
+    user = syedelec
+
+[include]
+    path = ~/.gitconfig.specific
+    path = ~/.gitalias
+
+[credential]
+    # store : Store credentials indefinitely on disk
+    # cache : Cache credentials in memory for a short period of time
+    helper = store
+
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX
+    show = diff-so-fancy | less --tabs=4 -RFX
+    log  = false
+    branch = false
+
+[diff-so-fancy]
+    markEmptyLines = false
+    stripLeadingSymbols = false
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
+
+[format]
+    signoff = true
+
+[help]
+    autocorrect = 0
+
+[push]
+    default = matching
+
+[fetch]
+    prune = true
+
+[color]
+    branch = auto
+    diff = always
+    grep = always
+    pager = true
+    showbranch = always
+    status = always
+    ui = always
+
+[color "branch"]
+    current = "red"
+    local = "white"
+    plain = "white"
+    remote  = "blue"
+
+[color "decorate"]
+    branch = "yellow ul"
+    HEAD = "yellow ul"
+    remoteBranch = "yellow"
+    stash = "green"
+    tag = "red"
+
+[color "diff"]
+    commit = "blue"
+    frag = "blue"
+    func = "cyan"
+    meta = "yellow"
+    new = "green"
+    old = "red"
+    plain = "white"
+    whitespace = "red reverse"
+
+[color "diff-highlight"]
+    oldNormal = "red"
+    oldHighlight = "white red"
+    newNormal = "green"
+    newHighlight = "black green"
+
+[color "interactive"]
+    error = "red"
+    header = "blue"
+    help = "white dim"
+    prompt = "cyan"
+
+[color "status"]
+    added = "green"
+    changed = "red"
+    header = "white"
+    nobranch = "magenta"
+    unmerged = "blue"
+    untracked = "white dim"
+    updated = "green"
+
+[gui]
+    fontui = -family NotoSansRegular -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+    fontdiff = -family EnvyCodeR -size 10 -weight normal -slant roman -underline 0 -overstrike 0

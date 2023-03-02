@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+# does not work if selected commit is the first one
+# in that case, use --root but if logs are long (kernel)
+# it will take forever
+fixup() {
+    __is_git_repo__ || return 1
+    __check_no_args__ ${@} || return 1
+
+    local commit_hash="${1}"
+    local first_commit="$(git rev-list --max-parents=0 HEAD)"
+
+    git cat-file -e ${commit_hash} &> /dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: commit '${commit_hash}' does not exist"
+        return 1
+    fi
+
+    if [[ "${first_commit}" == *"${commit_hash}"* ]]; then
+        echo "fatal: cannot use first commit, use 'git rebase -i --root'"
+        return 1
+    fi
+
+    __check_untracked__
+
+    # make sure some files has been added
+    if [ ! -n "$(git diff --name-only --cached)" ]; then
+        echo "fatal: no files staged"
+        return 1
+    fi
+
+    git commit --fixup="${commit_hash}" &> /dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: nothing to commit"
+        return 1
+    fi
+
+    GIT_SEQUENCE_EDITOR=: git rebase -i --autostash \
+                                     --autosquash ${commit_hash}~1 &>/dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: conflicts detected, resetting..."
+        git rebase --abort &> /dev/null
+        git reset HEAD~ &> /dev/null
+        return 1
+    fi
+
+    echo "success: fixup"
+    return 0
+}
+
+fixup ${@}
+

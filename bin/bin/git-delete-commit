@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/git.lib.sh
+
+
+delete() {
+    __is_git_repo__ || return 1
+    __check_no_args__ ${@} || return 1
+
+    local commit_hash="${1}"
+
+    git cat-file -e ${commit_hash} &> /dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: commit '${commit_hash}' does not exist"
+        return 1
+    fi
+    git rebase --rebase-merges --onto ${commit_hash}^ ${commit_hash}
+}
+
+delete ${@}
+

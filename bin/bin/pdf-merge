@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/pdf.lib.sh
+
+__pdf_merge() {
+    __check_binary__ qpdf || return 1
+    if [ $# -lt 2 ]; then
+        echo "fatal: wrong arguments provided"
+        echo "usage: $ $(basename ${0}) <*pdf>/<list of pdfs>"
+        return 1
+    fi
+
+    local output_pdf="output_merged.pdf"
+
+    pdfs=("${@}")
+    __check_pdf__ "${pdfs}" || return 1
+
+    qpdf --empty --pages ${pdfs[@]} -- ${output_pdf}
+    [ $? -eq 0 ] || return 1 && echo "success: merged PDFs into ${output_pdf}"
+}
+
+__pdf_merge "${@}"
+

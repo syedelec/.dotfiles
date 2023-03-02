@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/ssl.lib.sh
+
+
+__openssl_x509_info() {
+    __check_binary__ openssl || return 1
+    if [ $# -ne 1 ]; then
+        echo "fatal: wrong arguments provided"
+        echo "usage: $ $(basename ${0}) <cert.der/cert.pem>"
+        return 1
+    fi
+
+    local certificate="${1}"
+    __check_files_exist__ ${certificate} || return 1
+
+    pem_cmd="openssl x509 -in "${certificate}" -inform pem -text -noout"
+    der_cmd="openssl x509 -in "${certificate}" -inform der -text -noout"
+
+    case "${certificate}" in
+        *.der)
+            ${der_cmd};;
+        *.pem)
+            ${pem_cmd};;
+        *)
+            ${pem_cmd} 2> /dev/null ||
+            ${der_cmd} 2> /dev/null || {
+                echo "fatal: not an X.509 certificate"
+                return 1
+            };;
+    esac
+}
+
+__openssl_x509_info "${@}"
+

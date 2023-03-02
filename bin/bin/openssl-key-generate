@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/ssl.lib.sh
+
+
+__openssl_key_generate() {
+    local KEY_ALGORITHMS=(rsa ec)
+    local RSA_KEY_SIZES=(2048 4096 8192)
+    local EC_KEY_SIZES=(256 384 521)
+    local OPENSSL_FORMAT=(pem der)
+
+    local algorithm
+    local format
+    local key_bits
+    local output
+    local public_key
+    local cmd
+
+    read -r -p "Enter algorithm of key [${KEY_ALGORITHMS[*]}] [default: rsa]: " algorithm
+    [[ -z "${algorithm}" ]] && algorithm="rsa"
+    algorithm=${algorithm,,}
+
+    if [[ ! " "${KEY_ALGORITHMS[@]}" " == *" "${algorithm}" "* ]] ;then
+        echo "fatal: unsupported algorithm ${algorithm}"
+        return 1
+    fi
+
+    read -r -p "Enter ouput format of key [${OPENSSL_FORMAT[*]}] [default: pem]: " format
+    [[ -z "${format}" ]] && format="pem"
+    format=${format,,}
+
+    if [[ ! " "${OPENSSL_FORMAT[@]}" " == *" "${format}" "* ]] ;then
+        echo "fatal: unsupported output format ${format}"
+        return 1
+    fi
+
+    output=${1:-key.${format}}
+    if [ -s "${output}" ]; then
+        echo "fatal: ${output} already exists"
+        return 1
+    fi
+
+    cmd="openssl genpkey -algorithm ${algorithm} -out ${output} -outform ${format} "
+
+    case "${algorithm}" in
+        rsa)
+            read -r -p "Enter key size [${RSA_KEY_SIZES[*]}] [default: 2048]: " key_bits
+            [[ -z "${key_bits}" ]] && key_bits="2048"
+
+            if [[ ! " "${RSA_KEY_SIZES[@]}" " == *" "${key_bits}" "* ]] ;then
+                echo "fatal: unsupported RSA key size ${key_bits}"
+                return 1
+            fi
+            rsa_cmd="${cmd} -pkeyopt rsa_keygen_bits:${key_bits}"
+            ${rsa_cmd} &> /dev/null
+            ;;
+        ec)
+            read -r -p "Enter key size [${EC_KEY_SIZES[*]}] [default: 256]: " key_bits
+            [[ -z "${key_bits}" ]] && key_bits="256"
+
+            if [[ ! " "${EC_KEY_SIZES[@]}" " == *" "${key_bits}" "* ]] ;then
+                echo "fatal: unsupported EC key size ${key_bits}"
+                return 1
+            fi
+            ec_cmd="${cmd} -pkeyopt ec_paramgen_curve:P-${key_bits} \
+                           -pkeyopt ec_param_enc:named_curve"
+            ${ec_cmd} &> /dev/null
+            ;;
+        *)
+            echo "fatal: not a valid key algorithm"
+            return 1
+            ;;
+    esac
+
+    # generate associated public key
+    public_key="${output%.*}_pub.${format}"
+    openssl pkey -pubout -inform ${format} -outform ${format} -in ${output} \
+                 -out "${public_key}"
+
+    echo "success: generated ${output} private and ${public_key} public keys"
+    return 0
+}
+
+__openssl_key_generate "${@}"
+
