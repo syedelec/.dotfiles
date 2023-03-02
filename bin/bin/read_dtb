@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/core.lib.sh
+
+
+read_dtb() {
+    __check_binary__ dtc || return 1
+    __check_no_args__ ${@} || return 1
+
+    DTS="$(dtc -I dtb -O dts "${1}")"
+    if [ ${?} -ne 0 ]; then
+        echo "fatal: provide a valid DTB"
+        return 1
+    fi
+    echo "${DTS}" | less
+}
+
+read_dtb ${@}
+
