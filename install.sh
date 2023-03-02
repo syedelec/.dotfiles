@@ -78,6 +78,7 @@ pacman_tools=(
     fd bat fzf rofi stow the_silver_searcher tree yay lynx firefox
     cmus cppcheck shellcheck meld android-tools neofetch cargo efitools
     deluge minicom evince dialog tk jq sd diff-so-fancy pandoc texlive-core
+    bash-language-server python-language-server clangd
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh
