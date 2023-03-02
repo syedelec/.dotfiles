@@ -73,7 +73,7 @@ export _ZO_EXCLUDE_DIRS="/mnt:/tmp"
 export _ZO_DATA_DIR="${HOME}/.zoxide"
 export _ZO_MAXAGE=5000
 
-eval "$(zoxide init --no-aliases bash)"
+eval "$(zoxide init --no-cmd --hook pwd bash)"
 
 ###############################################################################
 #                                   ripgrep                                   #
