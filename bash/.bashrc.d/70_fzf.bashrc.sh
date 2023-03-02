@@ -36,7 +36,7 @@ __fzf_history() {
 __fzf_files_open() {
     local files
     files=($(rg --files-with-matches "" |
-             fzf --tiebreak=length,end -n -1.. -d / -q "'${1}" -m -1 -0))
+             fzf --tiebreak=length,end -q "'${1}" -m -1 -0 --preview="bat {}"))
     [ -n "${files}" ] && ${EDITOR:-nvim} "${files[@]}"
 }
 
