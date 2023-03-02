@@ -52,8 +52,8 @@ __fzf_files_print() {
 # binding: ALT-D
 __fzf_dir_mru() {
     local dir
-    dir="$(zoxide query -l | fzf --tiebreak=length,end -1 -0 +m -q "'")"
-    [ -n "${dir}" ] && __readline_insert__ "${dir}"
+    dir=($(zoxide query -l | fzf --tiebreak=length,end -1 -0 -m -q "'"))
+    [[ -n "${dir[@]}" ]] && __readline_insert__ "${dir[@]}"
 }
 
 # cd to selected directory using `fzf`
