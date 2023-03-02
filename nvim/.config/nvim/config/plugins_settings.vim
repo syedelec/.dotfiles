@@ -30,14 +30,6 @@
     let g:loaded_zipPlugin = 1
 " }
 
-" wintabs {
-    " let g:wintabs_display = [ 'tabline', 'statusline' ]
-    " let g:wintabs_autoclose = 0
-" }
-
-" vim-buftabline {
-    let g:buftabline_indicators = 1
-" }
 
 " completion-nvim {
     " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
@@ -114,12 +106,6 @@ EOF
                 \ 'rgb',
                 \ 'rgba'
                 \ ]
-" }
-
-" vim-xray {
-    " let g:xray_enable = 1
-    " let g:xray_refresh_interval = 100
-    " let g:xray_force_redraw = 1
 " }
 
 " vim-visual-multi {
@@ -303,106 +289,6 @@ EOF
 " }
 
 
-" Airline {
-    " let g:airline_extensions = ['branch', 'tabline', 'whitespace', 'ycm']
-
-    " let g:airline#extensions#hunks#enabled = 0
-    " let g:airline#extensions#wordcount#enabled = 0
-
-    " let g:airline#extensions#tabline#formatter = 'unique_tail'
-    " let g:airline#extensions#tabline#enabled = 1
-    " let g:airline#extensions#tabline#show_tabs = 1
-    " let g:airline#extensions#tabline#show_splits = 0
-    " let g:airline#extensions#tabline#show_buffers = 1
-    " let g:airline#extensions#tabline#buffer_idx_mode = 1
-    " let g:airline#extensions#tabline#buffer_nr_show = 0
-    " let g:airline#extensions#tabline#ignore_bufadd_pat =
-    "     \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
-
-    " " let g:airline#extensions#tabline#fnamemod = ':t'
-    " let g:airline#extensions#tabline#left_sep = ''
-    " let g:airline#extensions#tabline#left_alt_sep = ''
-    " let g:airline#extensions#tabline#right_sep = ''
-    " let g:airline#extensions#tabline#right_alt_sep = ''
-
-    " " resolve <tab> /* */ mixed-indent
-    " let g:airline#extensions#whitespace#mixed_indent_algo = 1
-
-    " let g:airline_left_sep = ''
-    " let g:airline_left_alt_sep = ''
-    " let g:airline_right_sep = ''
-    " let g:airline_right_alt_sep = ''
-    " let g:airline_theme= 'nord'
-
-    " let g:airline_skip_empty_sections = 1
-
-    " Activate powerline (Make sure to have a patched fond)
-    " let g:airline_powerline_fonts = 1
-
-    " if !exists('g:airline_symbols')
-    "   let g:airline_symbols = {}
-    " endif
-
-    " let g:airline_left_sep = '»'
-    " let g:airline_left_sep = '▶'
-    " let g:airline_right_sep = '«'
-    " let g:airline_right_sep = '◀'
-    " let g:airline_symbols.linenr = '␊'
-    " let g:airline_symbols.linenr = '␤'
-    " let g:airline_symbols.linenr = '¶'
-    " let g:airline_symbols.branch = '⎇'
-    " let g:airline_symbols.paste = 'ρ'
-    " let g:airline_symbols.paste = 'Þ'
-    " let g:airline_symbols.paste = '∥'
-    " let g:airline_symbols.whitespace = 'Ξ'
-
-    " let g:airline_left_sep = ''
-    " let g:airline_left_alt_sep = ''
-    " let g:airline_right_sep = ''
-    " let g:airline_right_alt_sep = ''
-    " let g:airline_symbols.branch = ''
-    " let g:airline_symbols.readonly = ''
-    " let g:airline_symbols.linenr = ''
-" }
-
-" deoplete-clang {
-    " let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.9/lib/libclang-3.9.so.1"
-" }
-
-
-" deoplete {
-    " let g:deoplete#enable_at_startup = 1
-    " let g:deoplete#enable_ignore_case = 1
-    " let g:deoplete#max_list = 50
-    " let g:deoplete#auto_complete_delay = 20
-    " let g:deoplete#auto_refresh_delay = 20
-
-    " " " Let <Tab>/<s-Tab> also do completion
-    " inoremap <silent><expr> <Tab>
-    "   \ pumvisible() ? "\<C-n>" :
-    "   \ deoplete#mappings#manual_complete()
-
-    " inoremap <silent><expr> <s-Tab>
-    "   \ pumvisible() ? "\<C-p>" :
-    "   \ deoplete#mappings#manual_complete()
-
-    " Do not miss snippets with short (single or double char) names from
-    " deoplete completion list
-    " call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
-
-    " Close the documentation window when completion is done
-    " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    " set omnifunc=syntaxcomplete#Complete
-" }
-
-
-" nvim-completion-manager' {
-    " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" }
-
-
 " vim-move {
     nmap <C-Up> <Plug>MoveLineUp
     nmap <C-Down> <Plug>MoveLineDown
@@ -412,71 +298,12 @@ EOF
 " }
 
 
-" NERDTree {
-    " let g:NERDTreeMinimalUI = 1
-    let g:NERDTreeWinSize = 25
-    let g:NERDTreeChDirMode = 2
-    let g:NERDTreeCascadeOpenSingleChildDir = 1
-    let g:NERDTreeCascadeSingleChildDir = 0
-    let g:NERDTreeShowHidden = 1
-    let g:NERDTreeRespectWildIgnore = 0
-    let g:NERDTreeAutoDeleteBuffer = 0
-    let g:NERDTreeQuitOnOpen = 0
-    let g:NERDTreeHijackNetrw = 1
-    let NERDTreeIgnore = [
-        \ '\.git$', '\.hg$', '\.svn$', '\.stversions$', '\.pyc$', '\.svn$',
-        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$'
-        \ ]
-" }
-
-
 " vim-mundo {
     let g:mundo_width = 50
     let g:mundo_preview_height = 30
     let g:mundo_right = 1
     let g:mundo_auto_preview_delay = 0
     nnoremap <F5> :MundoToggle<CR>
-" }
-
-
-" is.vim {
-    " map /  <Plug>(is-forward)
-    " map ?  <Plug>(is-backward)
-    " cmap <tab> <Plug>(is-scroll-f)
-    " cmap <s-tab> <Plug>(is-scroll-b)
-
-    " * maps the entire word only (e.g 'map')
-    " g* maps the word that maybe is contained in another words
-    "   -> e.g 'map' also in 'nmap'
-    " map n  <Plug>(is-n)
-    " map N  <Plug>(is-nohl-N)
-    " map *  <Plug>(is-nohl-*)
-    " map #  <Plug>(is-nohl-#)
-    " map g* <Plug>(is-nohl-g*)
-    " map g# <Plug>(is-nohl-g#)
-    " let g:is#do_default_mappings = 0
-" }
-
-
-" incsearch.vim {
-    " map /  <Plug>(incsearch-forward)
-    " map ?  <Plug>(incsearch-backward)
-
-    " set hlsearch
-    " let g:incsearch#auto_nohlsearch = 1
-
-    " * maps the entire word only (e.g 'map')
-    " g* maps the word that maybe is contained in another words
-    "   -> e.g 'map' also in 'nmap'
-    " map n  <Plug>(incsearch-nohl-n)
-    " map N  <Plug>(incsearch-nohl-N)
-    " map *  <Plug>(incsearch-nohl-*)
-    " map #  <Plug>(incsearch-nohl-#)
-    " map g* <Plug>(incsearch-nohl-g*)
-    " map g# <Plug>(incsearch-nohl-g#)
-
-    " map /  <Plug>(incsearch-forward)
-    " nnoremap <CR> :nohlsearch<CR><CR>
 " }
 
 
@@ -499,44 +326,6 @@ EOF
     " let g:UltiSnipsEditSplit="vertical"
 " }
 
-" YouCompleteMe {
-    " let g:ycm_show_diagnostics_ui = 0
-    " let g:ycm_server_python_interpreter = "/usr/bin/python2"
-    let g:ycm_complete_in_comments = 1
-    let g:ycm_complete_in_strings = 1
-    " let g:ycm_echo_current_diagnostics = 0
-    " let g:ycm_enable_diagnostic_highlighting = 0
-    " let g:ycm_enable_diagnostic_signs = 0
-    let g:ycm_confirm_extra_conf = 0
-    " let g:ycm_auto_trigger = 1
-    let g:ycm_keep_logfiles = 0
-    " let g:ycm_cache_omnifunc = 0
-    " let g:ycm_goto_buffer_command = 'new-or-existing-tab'
-    " let g:ycm_open_loclist_on_ycm_diags = 0
-    " let g:ycm_min_num_of_chars_for_completion = 3
-    let g:ycm_max_num_candidates = 10
-
-    let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
-    let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
-
-    " Enable markdown support
-    let g:ycm_filetype_blacklist = {
-                \ 'notes': 1,
-                \ 'markdown': 0,
-                \ 'unite': 1,
-                \ 'tagbar': 1,
-                \ 'pandoc': 1,
-                \ 'qf': 1,
-                \ 'vimwiki': 1,
-                \ 'text': 1,
-                \ 'infolog': 1,
-                \ 'mail': 1
-                \ }
-" }
-
-" echodoc {
-    " let g:echodoc_enable_at_startup = 1
-" }
 
 " vim-better-whitespace {
     let g:better_whitespace_guicolor='#BF616A'
