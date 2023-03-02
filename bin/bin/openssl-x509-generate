@@ -4,7 +4,7 @@ source ${HOME}/bin/.lib/ssl.lib.sh
 
 
 __openssl_x509_generate() {
-    openssl_key_generate || return 1
+    openssl-key-generate || return 1
 
     declare -A CERTIFICATE=(
                             [/C]="US"
