@@ -7,5 +7,5 @@ cpaste() {
     xclip -selection clipboard -o
 }
 
-cpaste ${@}
+cpaste "${@}"
 

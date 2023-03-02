@@ -3,7 +3,7 @@
 source ${HOME}/bin/.lib/img.lib.sh
 
 __img_rotate_90() {
-    __img_rotate__ +90 ${@} || echo "usage: $ $(basename ${0}) <input> [<output_folder>]"
+    __img_rotate__ +90 "${@}" || echo "usage: $ $(basename ${0}) <input> [<output_folder>]"
 }
 
-__img_rotate_90 ${@}
+__img_rotate_90 "${@}"

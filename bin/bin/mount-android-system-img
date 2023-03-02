@@ -10,14 +10,14 @@ android_mount_system_img() {
         return 1
     fi
 
-    __check_files_exist__ ${1} || return 1
+    __check_files_exist__ "${1}" || return 1
 
-    simg2img ${1} ${1}.raw
+    simg2img "${1}" "${1}.raw"
     mkdir mnt-point &> /dev/null
-    sudo mount -t ext4 -o loop ${1}.raw mnt-point/
-    rm -rf ${1}.raw
-    echo "success: ${1} mounted to mnt-point/"
+    sudo mount -t ext4 -o loop "${1}.raw" mnt-point/
+    rm -rf "${1}.raw"
+    echo "success: '${1}' mounted to mnt-point/"
 }
 
-android_mount_system_img ${@}
+android_mount_system_img "${@}"
 

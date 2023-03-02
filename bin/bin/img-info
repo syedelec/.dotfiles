@@ -11,10 +11,10 @@ __img_info() {
     fi
 
     local images=("${@}")
-    __check_img__ ${images} || return 1
+    __check_img__ "${images}" || return 1
 
-    file ${images[@]}
+    file "${images[@]}"
 }
 
-__img_info ${@}
+__img_info "${@}"
 

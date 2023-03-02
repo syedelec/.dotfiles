@@ -13,5 +13,5 @@ ccopy() {
     xclip -selection clipboard < ${file}
 }
 
-ccopy ${@}
+ccopy "${@}"
 
