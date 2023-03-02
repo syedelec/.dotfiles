@@ -78,7 +78,8 @@ pacman_tools=(
     fd bat fzf rofi stow the_silver_searcher tree yay lynx firefox
     cmus cppcheck shellcheck meld android-tools neofetch cargo efitools
     deluge minicom evince dialog tk jq sd diff-so-fancy pandoc texlive-core
-    bash-language-server python-language-server clangd
+    bash-language-server python-language-server clangd jdk11-openjdk
+    jre11-openjdk binwalk
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh
@@ -105,8 +106,8 @@ pacman_lib=(
 
 yay_tools=(
     bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
-    zoxide-bin navi-bin duf-bin neovim-nightly-bin teams teamviewer menyoki-bin
-    cling just-bin
+    zoxide-bin navi-bin duf-bin neovim-nightly-bin teams teamviewer
+    cling just-bin libtree bear
 )
 yay_customization=(
     paper-icon-theme i3lock-fancier-git colorpicker
