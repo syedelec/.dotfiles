@@ -38,8 +38,8 @@ fixup() {
         return 1
     fi
 
-    GIT_SEQUENCE_EDITOR=: git rebase -i --autostash \
-                                     --autosquash ${commit_hash}~1 &>/dev/null
+    GIT_SEQUENCE_EDITOR=: git rebase --interactive --autostash \
+                                     --autosquash ${commit_hash}^ &> /dev/null
     if [ $? -ne 0 ]; then
         echo "fatal: conflicts detected, resetting..."
         git rebase --abort &> /dev/null

@@ -18,7 +18,7 @@ __is_git_repo__() {
 
 __check_untracked__() {
     __check_binary__ git || return 1
-    git -C $(git root) ls-files -o --directory --exclude-standard | sed -n q1
+    git -C $(git root) ls-files -o --exclude-standard | sed -n q1
     [ $? -eq 1 ] && {
         echo "warning: untracked files detected"
         return 1
