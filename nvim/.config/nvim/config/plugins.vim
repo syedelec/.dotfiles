@@ -5,7 +5,7 @@
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
     " Color scheme
-    Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+    Plug 'arcticicestudio/nord-vim'
 
     " Git integration
     Plug 'airblade/vim-gitgutter'
