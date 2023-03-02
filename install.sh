@@ -44,6 +44,12 @@ DIR_REPOS_UI="${DIR_REPOS}/ui"
 
 DIR_DOTFILES="${HOME}/.dotfiles"
 
+URL_ARM_32_TOOLCHAIN_11_2="https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-x86_64-arm-none-linux-gnueabihf.tar.xz"
+URL_ARM_64_TOOLCHAIN_11_2="https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz"
+DIR_TOOLCHAINS="${HOME}/.toolchains"
+DIR_ARM_32_TOOLCHAIN="${DIR_TOOLCHAINS}/11.2/aarch32"
+DIR_ARM_64_TOOLCHAIN="${DIR_TOOLCHAINS}/11.2/aarch64"
+
 TEMP_GNOME_CONFIG=/tmp/org.gnome.ini.tmp
 BACKGROUND_IMAGE="${HOME}/.wallpapers/wallpaper_001.jpg"
 SCREENSAVER_IMAGE="${HOME}/.wallpapers/wallpaper_002.jpg"
@@ -165,6 +171,11 @@ pip3 install --user ${pip_packages[*]} 1>/dev/null
 # │       ├── embedded
 # │       ├── tools
 # │       └── ui
+# ├── .toolchains
+# │   └── [version]
+# │       ├── aarch32
+# │       └── aarch64
+# │
 
 mkdir -p "${DIR_PERSONAL}"
 
@@ -172,6 +183,18 @@ mkdir -p "${DIR_REPOS_UI}"
 mkdir -p "${DIR_REPOS_DEV}"
 mkdir -p "${DIR_REPOS_TOOLS}"
 mkdir -p "${DIR_REPOS_EMBEDDED}"
+
+mkdir -p "${DIR_ARM_32_TOOLCHAIN}"
+mkdir -p "${DIR_ARM_64_TOOLCHAIN}"
+
+###############################################################################
+#                                 toolchains                                  #
+###############################################################################
+
+wget -cO- "${URL_ARM_32_TOOLCHAIN_11_2}" | \
+    tar xf - -J -C "${DIR_ARM_32_TOOLCHAIN}" --strip-components=1
+wget -cO- "${URL_ARM_64_TOOLCHAIN_11_2}" | \
+    tar xf - -J -C "${DIR_ARM_64_TOOLCHAIN}" --strip-components=1
 
 ###############################################################################
 #                                 activation                                  #
