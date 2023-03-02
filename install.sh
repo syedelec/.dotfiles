@@ -112,7 +112,7 @@ pacman_lib=(
 
 yay_tools=(
     bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
-    zoxide navi-bin neovim-nightly-bin teams teamviewer
+    zoxide navi-bin neovim-nightly-bin teams teamviewer tio
     cling libtree bear gdu pandoc-bin
 )
 yay_customization=(

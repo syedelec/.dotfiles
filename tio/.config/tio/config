@@ -1,0 +1,17 @@
+# Defaults
+baudrate = 115200
+databits = 8
+flow = none
+stopbits = 1
+parity = none
+prefix-ctrl-key = a
+no-autoconnect = disable
+log = disable
+
+# Sub-configuraions
+[rpi4]
+device = /dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0
+
+[stm32mp1]
+device = /dev/ttyACM0
+
