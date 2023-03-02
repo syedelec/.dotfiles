@@ -16,7 +16,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/fzf.vim'
 
     " Completion server
-    Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+    " Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
     " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
     " Sane buffer/window deletion
@@ -78,8 +78,9 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/vim-easy-align'
 
     " Built-in LSP
-    " Plug 'neovim/nvim-lspconfig'
-    " Plug 'nvim-lua/completion-nvim'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-lua/completion-nvim'
+    Plug 'nvim-treesitter/nvim-treesitter'
 
     " Tabline for buffers/tabs
     " Plug 'zefei/vim-wintabs'
