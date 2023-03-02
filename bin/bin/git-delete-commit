@@ -7,23 +7,27 @@ delete-commit() {
     __is_git_repo__ || return 1
     __check_no_args__ ${@} || return 1
 
+    local commit="${1}"
     local first_commit="$(git rev-list --max-parents=0 HEAD)"
 
-    for commit in ${@}; do
-        git cat-file -e ${commit} &> /dev/null
-        if [ $? -ne 0 ]; then
-            echo "fatal: commit '${commit}' does not exist"
-            continue
-        fi
+    git cat-file -e ${commit} &> /dev/null
+    if [ $? -ne 0 ]; then
+        echo "fatal: commit '${commit}' does not exist"
+        return 1
+    fi
 
-        if [[ "${first_commit}" == *"${commit}"* ]]; then
-            echo "fatal: cannot delete first commit"
-            continue
-        fi
+    git merge-base --is-ancestor ${commit} HEAD
+    if [ $? -ne 0 ]; then
+        echo "fatal: commit '${commit}' is not in the current branch"
+        return 1
+    fi
 
-        git rebase --rebase-merges --onto ${commit}^ ${commit} &> /dev/null
-    done
+    if [[ "${first_commit}" == *"${commit}"* ]]; then
+        echo "fatal: cannot delete first commit"
+        return 1
+    fi
 
+    git rebase --rebase-merges --onto ${commit}^ ${commit} &> /dev/null
     echo "success: delete-commit"
     return 0
 }
