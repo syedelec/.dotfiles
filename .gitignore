@@ -19,6 +19,16 @@ cmus/.config/cmus/
 # path to gtk bookmarks
 gtk/.config/gtk-3.0/bookmarks
 
+# path to sublime text
+sublime-text/.config/sublime-text-3/Backup
+sublime-text/.config/sublime-text-3/Cache
+sublime-text/.config/sublime-text-3/Index
+sublime-text/.config/sublime-text-3/Local
+sublime-text/.config/sublime-text-3/Lib
+sublime-text/.config/sublime-text-3/Packages
+!sublime-text/.config/sublime-text-3/Packages/User
+sublime-text/.config/sublime-text-3/Package Storage
+
 # python cache __pycache__
 __pycache__
 
