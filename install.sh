@@ -60,7 +60,7 @@ REPO_TILIX="https://github.com/syedelec/tilix.git"
 ############
 
 pacman_groups=(
-    base base-devel dlang-dmd multilib-devel
+    base base-devel dlang-dmd multilib-devel go rust-src
 )
 pacman_utils=(
     cpio unzip cmake xclip xsel xterm unzip evtest cairo net-tools pam
