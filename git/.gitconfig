@@ -49,6 +49,9 @@
     log  = false
     branch = false
 
+[advice]
+    detachedHead = false
+
 [diff-so-fancy]
     markEmptyLines = false
     stripLeadingSymbols = false
