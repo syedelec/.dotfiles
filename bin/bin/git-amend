@@ -12,11 +12,10 @@ amend() {
     }
 
     __check_untracked__
-    files=("${@}")
+    args=("${@}")
 
     if [ $# -gt 0 ]; then
-        __check_files_exist__ ${files[@]} || return 1
-        git add -f ${files[@]}
+        git add -f ${args[@]}
         git commit --amend --no-edit &> /dev/null
     else
         [ -n "$(git -C $(git root) ls-files -m)" ] || {
