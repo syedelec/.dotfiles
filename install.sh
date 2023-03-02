@@ -91,6 +91,7 @@ pacman_fonts=(
     ttf-roboto ttf-roboto-mono ttf-font-awesome ttf-fira-code ttf-fira-sans
     ttf-fira-mono ttf-lato ttf-material-icons ttf-droid cantarell-fonts
     bdf-unifont terminus-font nerd-fonts-terminus noto-fonts
+    ttf-nerd-fonts-symbols
 )
 pacman_lib=(
     libcurl-compat libev libx11 libxkbcommon-x11 gnu-efi-libs
