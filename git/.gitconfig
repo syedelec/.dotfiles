@@ -74,6 +74,9 @@
 [pull]
     rebase = true
 
+[submodule]
+    fetchJobs = 8
+
 [color]
     branch = auto
     diff = always
