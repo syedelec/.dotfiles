@@ -69,7 +69,7 @@ pacman_utils=(
     boost catch2 fmt mbedtls nlohmann-json
 )
 pacman_dev=(
-    vim neovim
+    vim
     dub ldc meson
     python-pip python2-pip
 )
@@ -104,8 +104,9 @@ pacman_lib=(
 #########
 
 yay_tools=(
-    bfs dtrx slack-desktop google-chrome sublime-text-dev gotop bitwise
-    zoxide-bin
+    bfs dtrx slack-desktop google-chrome sublime-text-dev bitwise
+    zoxide-bin navi-bin duf-bin neovim-nightly-bin teams teamviewer menyoki-bin
+    cling just-bin
 )
 yay_customization=(
     paper-icon-theme i3lock-fancier-git colorpicker
