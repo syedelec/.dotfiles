@@ -8,6 +8,7 @@ if [ -x $(command -v dircolors) ]; then
     alias grep='grep --color=auto'
     alias ip='ip --color=auto'
     alias diff='diff --color=auto'
+    alias hexedit='hexedit --color'
 fi
 
 # ls aliases
@@ -16,7 +17,6 @@ fi
 # -F : append operator to entries
 # -h : human size
 # LC_COLLATE=C : sort dot first
-alias l='ls -C --group-directories-first'
 alias ll='ls -Al --group-directories-first'
 alias lls='ls -hAl --group-directories-first'
 
@@ -27,8 +27,12 @@ alias lsblk='lsblk -p -o NAME,FSTYPE,LABEL,UUID,FSAVAIL,FSUSE%,MOUNTPOINT'
 
 alias m='make -s -j`getconf _NPROCESSORS_ONLN`'
 alias tree='LC_COLLATE=C tree -aC -I ".git|node_modules|bower_components|plugged|__pycache__|CMakeFiles" --dirsfirst'
+alias gtree='git ls-tree -r --name-only HEAD | LC_COLLATE=C \tree -aC --fromfile --dirsfirst'
 alias dtrx='dtrx --noninteractive'
 
 # -rr - read-only mode (prevents delete and spawn shell)
 alias ncdu='ncdu -rr -x -X ~/.ignore'
 
+# fix typos
+alias l='ll'
+alias lll='ll'
