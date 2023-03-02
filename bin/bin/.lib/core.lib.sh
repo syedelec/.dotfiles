@@ -66,6 +66,7 @@ __question__() {
 
 __check_process_running__() {
     __check_binary__ pgrep || return 1
+    __check_no_args__ "${@}" || return 1
     local -r processes=("${@}")
     for process in "${processes[@]}"; do
         [ pgrep "${process}" ] || {
