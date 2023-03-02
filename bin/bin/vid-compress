@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+source ${HOME}/bin/.lib/vid.lib.sh
+
+vid_compress() {
+    __check_binary__ ffmpeg || return 1
+    __check_no_args__ "${@}" || {
+        echo "usage: $ $(basename ${0}) <input.mp4> [bitrate (video)] [bitrate (audio)] [output.mp4]"
+        return 1
+    }
+
+    local audio_bitrates=(8 16 24 32 40 48 64 80 96 112 128 160 192 224 256 320)
+
+    local input_vid="${1}"
+    local v_bitrate="${2:-800k}"
+    local a_bitrate="${3:-128}"
+
+    [[ "${audio_bitrates[@]}" =~ "${a_bitrate}" ]] || {
+        echo "fatal: wrong audio bitates, possible values: [${audio_bitrates[@]}]"
+        echo "usage: $ $(basename ${0}) <input.mp4> [bitrate (video)] [bitrate (audio)] [output.mp4]"
+        return 1
+    }
+
+    local output_vid="${4:-output.mp4}"
+
+    __check_vid__ "${input_vid}" || return 1
+
+    ffmpeg -i "${input_vid}" -preset slow              \
+           -c:v libx264  -b:v "${v_bitrate}"           \
+           -c:a mp3      -b:a "${a_bitrate}k"          \
+           "${output_vid}"
+
+    [ $? -eq 0 ] || return 1 && echo "success: compressed ${input_vid} to ${output_vid}"
+}
+
+vid_compress "${@}"
+
