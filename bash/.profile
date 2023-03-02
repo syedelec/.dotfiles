@@ -70,8 +70,8 @@ export LESS_TERMCAP_ue=$'\e[0m'
 ###############################################################################
 
 export _ZO_EXCLUDE_DIRS="/mnt:/tmp"
-export _ZO_DATA="${HOME}/.zoxide"
-export _ZO_MAXAGE=500
+export _ZO_DATA_DIR="${HOME}/.zoxide"
+export _ZO_MAXAGE=5000
 
 eval "$(zoxide init --no-aliases bash)"
 
