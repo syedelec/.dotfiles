@@ -85,7 +85,7 @@ pacman_tools=(
     cmus cppcheck shellcheck meld android-tools neofetch cargo efitools
     deluge minicom evince dialog tk jq sd diff-so-fancy texlive-core
     bash-language-server python-lsp-server clang jdk11-openjdk
-    jre11-openjdk binwalk tree-sitter duf
+    jre11-openjdk binwalk tree-sitter duf tokei
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh
