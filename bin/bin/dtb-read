@@ -3,16 +3,23 @@
 source ${HOME}/bin/.lib/core.lib.sh
 
 __dtb_read() {
-    __check_binary__ dtc bat || return 1
-    if [ $# -ne 1 ]; then
+    __check_binary__ dtc || return 1
+    if [ $# -lt 1 ]; then
         echo "fatal: wrong arguments provided"
-        echo "usage: $ $(basename ${0}) <devicetree.dtb>"
+        echo "usage: $ $(basename ${0}) <devicetree.dtb> (<color>)"
         return 1
     fi
 
-    local dtb_file=${1}
+    local dtb_file="${1}"
+    local color="${2}"
     __check_files_exist__ ${dtb_file} || return 1
-    dtc -I dtb -O dts "${dtb_file}" | bat -l dts
+
+    if [ -z "${color}" ]; then
+        dtc -I dtb -O dts "${dtb_file}" | less
+    else
+        __check_binary__ bat || return 1
+        dtc -I dtb -O dts "${dtb_file}" | bat -l dts
+    fi
 }
 
 __dtb_read ${@}
