@@ -12,7 +12,7 @@ android_mount_system_img() {
 
     __check_files_exist__ "${1}" || return 1
 
-    simg2img "${1}" "${1}.raw"
+    simg2img "${1}" "${1}.raw" || return 1
     mkdir mnt-point &> /dev/null
     sudo mount -t ext4 -o loop "${1}.raw" mnt-point/
     rm -rf "${1}.raw"
