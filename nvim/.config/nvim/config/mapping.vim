@@ -32,12 +32,6 @@ map <a-d> <Plug>Duplicate
 " Select all text
 map <c-a> <esc>ggVG<CR>
 
-" Move between splits
-" nmap <silent> <c-Up> :wincmd k<CR>
-" nmap <silent> <c-Down> :wincmd j<CR>
-" nmap <silent> <c-Left> :wincmd h<CR>
-" nmap <silent> <c-Right> :wincmd l<CR>
-
 " Do not enter Ex mode
 nnoremap Q <nop>
 

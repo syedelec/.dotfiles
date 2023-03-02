@@ -16,10 +16,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/fzf.vim'
 
     " Completion server
-    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-    " Plug 'neoclide/coc-snippets'
-    " Plug 'neoclide/coc-pairs'
-
     Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
     " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
@@ -31,10 +27,6 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Snippets manager
     Plug 'SirVer/ultisnips'
-
-    " NERDTree explorer
-    " Plug 'scrooloose/nerdtree'
-    " Plug 'jistr/vim-nerdtree-tabs'
 
     " Defx tree explorer
     if has('nvim')
@@ -75,9 +67,6 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Search, substition and abbreviation
     Plug 'tpope/vim-abolish'
-
-    " Better incremental search
-    Plug 'haya14busa/is.vim'
 
     " Fade unsued buffer
     Plug 'TaDaa/vimade'
