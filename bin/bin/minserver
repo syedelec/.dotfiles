@@ -9,7 +9,11 @@ minserver() {
     local port="${1:-8000}"
     local path="${2:-./}"
 
-    python -m http.server --directory "${path}" "${port}" 2>/dev/null || {
+    ip="$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
+    echo "Starting HTTP server..."
+    echo "Connect through the following IP: ${ip}:${port}"
+
+    python -m http.server --directory "${path}" "${port}" &>/dev/null || {
         echo "usage: $ $(basename ${0}) [port] [path]"
         return 1
     }
