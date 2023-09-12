@@ -85,7 +85,7 @@ pacman_tools=(
     meld android-tools cargo efitools deluge evince dialog tokei binwalk
     jq texlive-core bash-language-server python-lsp-server git-delta
     clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
-    mattermost-desktop whois
+    mattermost-desktop whois arp-scan
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
