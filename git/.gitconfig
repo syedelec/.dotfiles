@@ -57,6 +57,9 @@
 [advice]
     detachedHead = false
 
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
 [delta]
     hyperlinks = false
     inspect-raw-lines = true
