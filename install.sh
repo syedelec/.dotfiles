@@ -80,12 +80,12 @@ pacman_dev=(
     python-pip
 )
 pacman_tools=(
-    docker openssl wget curl git ripgrep uncrustify valgrind mplayer sd
+    docker docker-compose openssl wget curl git ripgrep valgrind mplayer
     fd bat fzf rofi stow tree yay lynx firefox cmus cppcheck shellcheck
     meld android-tools cargo efitools deluge evince dialog tokei binwalk
     jq texlive-core bash-language-server python-lsp-server git-delta
     clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
-    mattermost-desktop whois arp-scan
+    mattermost-desktop whois arp-scan uncrustify sd
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
