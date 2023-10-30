@@ -21,6 +21,10 @@ shopt -s cmdhist
 # don't enable completion on empty line.
 shopt -s no_empty_cmd_completion
 
+# replaces directory names with the results of word expansion
+# when performing filename completion.
+shopt -s direxpand
+
 # enable several extended pattern matching operators are recognized
 # ?(pattern-list)
 #     Matches zero or one occurrence of the given patterns
