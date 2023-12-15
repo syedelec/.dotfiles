@@ -23,6 +23,10 @@
         {
             "enabled": true,
         },
+        "vue":
+        {
+            "enabled": true,
+        },
     },
     "show_symbol_action_links": true,
     "diagnostics_gutter_marker": "sign",

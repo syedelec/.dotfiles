@@ -23,6 +23,8 @@
 		"LSP-json",
 		"LSP-pylsp",
 		"LSP-rust-analyzer",
+		"LSP-typescript",
+		"LSP-vue",
 		"Markdown Extended",
 		"Markdown Images",
 		"MarkdownPreview",
@@ -33,7 +35,10 @@
 		"Terminus",
 		"TOML",
 		"TrailingSpaces",
+		"Translator",
 		"udev rules",
+		"Vue Syntax Highlight",
+		"Vuejs Complete Package",
 	],
 	"repositories":
 	[
