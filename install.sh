@@ -60,24 +60,27 @@ SCREENSAVER_IMAGE="${HOME}/.wallpapers/wallpaper_002.jpg"
 
 REPO_DOTFILES="https://github.com/syedelec/.dotfiles.git"
 REPO_TILIX="https://github.com/syedelec/tilix.git"
+REPO_ARC_THEME="https://github.com/jnsh/arc-theme"
 
 ############
 #  pacman  #
 ############
 
 pacman_groups=(
-    base base-devel dlang-dmd multilib-devel go rust-src
+    base base-devel dlang-dmd multilib-devel go
 )
 pacman_utils=(
     cpio unzip cmake xclip xsel xterm evtest cairo net-tools pam
     xcb-util-image xcb-util-keysyms tk dos2unix gdu cups help2man repo
     nmap gnu-netcat lsof detox sshfs lzop aspell-en bind-tools ctags
     boost catch2 fmt mbedtls nlohmann-json acpica dtc autoconf-archive
+    gptfdisk bc
 )
 pacman_dev=(
-    vim
+    vim neovim python-pynvim
     dub ldc meson
     python-pip
+    rustup
 )
 pacman_tools=(
     docker docker-compose openssl wget curl git ripgrep valgrind mplayer
@@ -85,10 +88,12 @@ pacman_tools=(
     meld android-tools cargo efitools deluge evince dialog tokei binwalk
     jq texlive-core bash-language-server python-lsp-server git-delta
     clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
-    mattermost-desktop whois arp-scan uncrustify sd
+    mattermost-desktop whois arp-scan uncrustify sd wireguard-tools
+    telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
+    gnome-shell-extension-caffeine
 )
 pacman_fonts=(
     ttf-roboto ttf-roboto-mono ttf-font-awesome ttf-fira-code ttf-fira-sans
@@ -104,21 +109,13 @@ pacman_lib=(
 #########
 
 yay_tools=(
-    google-chrome teams teamviewer
+    google-chrome teams teamviewer sublime-text-4 ticktick
 )
 yay_utils=(
-    bfs dtrx bitwise zoxide navi-bin tio cling-git libtree
+    bfs dtrx bitwise zoxide navi-bin tio libtree zoom standardnotes-desktop
 )
 yay_customization=(
-    paper-icon-theme colorpicker
-)
-
-#########
-#  pip  #
-#########
-
-pip_packages=(
-    pynvim neovim
+    tela-icon-theme colorpicker
 )
 
 ###############################################################################
@@ -132,7 +129,7 @@ sudo sed -i 's|^#\(Color.*\)|\1|' /etc/pacman.conf
 #                                   install                                   #
 ###############################################################################
 
-yay_args="--needed --noconfirm --nocleanmenu --nodiffmenu --noeditmenu"
+yay_args="--needed --noconfirm --cleanmenu=false --diffmenu=false --editmenu=false"
 pacman_args="--needed --noconfirm"
 
 echo "======= Update current packages ======="
@@ -162,11 +159,6 @@ yay -Sy ${yay_args}                      \
     ${yay_tools[*]}                      \
     ${yay_utils[*]}                      \
     ${yay_customization[*]}
-
-echo "======= Install 'PYTHON' packages ======="
-
-pip3 install --user --upgrade pip
-pip3 install --user ${pip_packages[*]}
 
 ###############################################################################
 #                                architecture                                 #
@@ -227,16 +219,36 @@ if [[ ! -d "${DIR_DOTFILES}" ]]; then
 fi
 
 ###############################################################################
+#                                 gnome theme                                 #
+###############################################################################
+
+echo "======= Setup 'GNOME' theme ======="
+
+if [[ ! -d "${DIR_REPOS_UI}/arc-theme" ]]; then
+    git clone --recursive "${REPO_ARC_THEME}" "${DIR_REPOS_UI}/arc-theme" 1>/dev/null --depth 1
+else
+    echo "${DIR_REPOS_UI}/arc-theme already exists"
+fi
+
+cd "${DIR_REPOS_UI}/arc-theme" || exit 1
+meson setup --reconfigure --prefix=$HOME/.local \
+            -Dvariants=dark build/ \
+            -Dthemes=gtk3,gtk4,gnome-shell \
+            -Dgnome_shell_gresource=true
+meson install -C build/
+
+###############################################################################
 #                               gnome settings                                #
 ###############################################################################
 
 echo "======= Setup 'GNOME' ======="
 
-cp .gnome/org.gnome.ini ${TEMP_GNOME_CONFIG}
+cp ${DIR_DOTFILES}/.gnome/org.gnome.ini ${TEMP_GNOME_CONFIG}
 dconf load /org/gnome/ < ${TEMP_GNOME_CONFIG}
 
 # dynamically set background/screensaver image
 gsettings set org.gnome.desktop.background picture-uri file://${BACKGROUND_IMAGE}
+gsettings set org.gnome.desktop.background picture-uri-dark file://${BACKGROUND_IMAGE}
 gsettings set org.gnome.desktop.screensaver picture-uri file://${SCREENSAVER_IMAGE}
 
 sudo dconf update
@@ -249,11 +261,9 @@ rm -f ${TEMP_GNOME_CONFIG}
 
 echo "======= Setup 'SYSTEMD' ======="
 
-sudo systemctl enable sshd
-
 sudo systemctl disable bluetooth
 sudo systemctl disable cups
-sudo systemctl disable docker
+sudo systemctl enable docker
 
 grep -q docker /etc/group || sudo groupadd docker
 sudo usermod -aG docker ${USER}
@@ -266,13 +276,14 @@ echo "======= Setup 'TERMINAL' ======="
 
 if [[ ! -d "${DIR_REPOS_TOOLS}/tilix" ]]; then
     git clone --recursive "${REPO_TILIX}" "${DIR_REPOS_TOOLS}/tilix" 1>/dev/null
-    cd "${DIR_REPOS_TOOLS}/tilix" || exit 1
-    dub build --build=release &> /dev/null
-    sudo ./install.sh &> /dev/null
-    dconf load /com/gexperts/Tilix/ < "${HOME}/.config/tilix/tilix.conf"
 else
     echo "${DIR_REPOS_TOOLS}/tilix already exists"
 fi
+
+cd "${DIR_REPOS_TOOLS}/tilix" || exit 1
+dub build --build=release &> /dev/null
+sudo ./install.sh &> /dev/null
+dconf load /com/gexperts/Tilix/ < "${DIR_DOTFILES}/tilix/.config/tilix/tilix.conf"
 
 ###############################################################################
 #                                neovim config                                #
