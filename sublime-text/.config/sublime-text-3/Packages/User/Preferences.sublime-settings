@@ -28,4 +28,5 @@
     "show_git_status_in_status_bar": false,
     "show_line_endings": true,
     "draw_unicode_white_space": "all",
+    "index_files": true,
 }
