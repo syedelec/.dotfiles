@@ -47,7 +47,7 @@ shopt -s direxpand
 HISTCONTROL=ignoreboth:erasedups
 
 # unlimited bash history
-HISTFILE="${HOME}/.history"
+HISTFILE="${HOME}/.bash_history"
 HISTSIZE=
 HISTFILESIZE=
 
