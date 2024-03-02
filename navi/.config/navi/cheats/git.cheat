@@ -15,5 +15,11 @@ git push --delete origin <remote_tags>
 # delete remote branch
 git push --delete origin <remote_branches>
 
+# rebase onto
+git rebase --onto <on_branch> <from_commit> <current_branch>
+
 $ remote_tags: git ls-remote --tags --refs origin | sed 's/.*refs\/tags\///'
 $ remote_branches: git ls-remote --heads origin | sed 's/.*refs\/heads\///'
+$ on_branch: git for-each-ref --format='%(refname:short)' refs/heads/
+$ from_commit: git log -10 --pretty=format:"%h"
+$ current_branch: git for-each-ref --format='%(refname:short)' refs/heads/
