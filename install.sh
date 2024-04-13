@@ -74,7 +74,7 @@ pacman_utils=(
     xcb-util-image xcb-util-keysyms tk dos2unix gdu cups help2man repo
     nmap gnu-netcat lsof detox sshfs lzop aspell-en bind-tools ctags
     boost catch2 fmt mbedtls nlohmann-json acpica dtc autoconf-archive
-    gptfdisk bc
+    gptfdisk bc git-cliff
 )
 pacman_dev=(
     vim neovim python-pynvim
@@ -89,7 +89,7 @@ pacman_tools=(
     jq texlive-core bash-language-server python-lsp-server git-delta
     clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
     mattermost-desktop whois arp-scan uncrustify sd wireguard-tools
-    telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc
+    telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc fdupes
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
