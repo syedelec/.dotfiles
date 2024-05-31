@@ -1,17 +1,31 @@
-# Defaults
+[default]
 baudrate = 115200
 databits = 8
 flow = none
 stopbits = 1
 parity = none
+output-delay = 0
+output-line-delay = 0
+auto-connect = direct
+local-echo = false
+input-mode = normal
+output-mode = normal
+timestamp = false
+log-append = false
+log-strip = false
+color = bold
+rs-485 = false
+alert = none
+script-run = always
 prefix-ctrl-key = a
-no-autoconnect = disable
-log = disable
+no-reconnect = false
+log = false
 
 # Sub-configuraions
 [rpi4]
+baudrate = 115200
 device = /dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0
 
 [stm32mp1]
+baudrate = 115200
 device = /dev/ttyACM0
-
