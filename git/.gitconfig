@@ -48,6 +48,9 @@
     # cache : Cache credentials in memory for a short period of time
     helper = cache
 
+[stash]
+    showPatch = true
+
 [pager]
     diff = delta
     show = delta
