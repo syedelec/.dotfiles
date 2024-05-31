@@ -34,7 +34,7 @@ nord15="#B48EAD"
 export GCC_COLORS="error=31:warning=38;5;208:note=34:caret=32:locus=37:quote=36"
 
 # GTK theming to fix libadwaita
-export GTK_THEME=Arc-Dark
+export GTK_THEME=Qogir-Dark
 
 # xdg config
 export XDG_CONFIG_HOME="${HOME}/.config"

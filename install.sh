@@ -60,7 +60,8 @@ SCREENSAVER_IMAGE="${HOME}/.wallpapers/wallpaper_002.jpg"
 
 REPO_DOTFILES="https://github.com/syedelec/.dotfiles.git"
 REPO_TILIX="https://github.com/syedelec/tilix.git"
-REPO_ARC_THEME="https://github.com/jnsh/arc-theme"
+REPO_QOGIR_GTK_THEME="https://github.com/vinceliuice/Qogir-theme"
+REPO_QOGIR_ICN_THEME="https://github.com/vinceliuice/Qogir-icon-theme"
 
 ############
 #  pacman  #
@@ -224,18 +225,25 @@ fi
 
 echo "======= Setup 'GNOME' theme ======="
 
-if [[ ! -d "${DIR_REPOS_UI}/arc-theme" ]]; then
-    git clone --recursive "${REPO_ARC_THEME}" "${DIR_REPOS_UI}/arc-theme" 1>/dev/null --depth 1
+mkdir -p "${HOME}/.themes"
+mkdir -p "${HOME}/.icons"
+
+if [[ ! -d "${DIR_REPOS_UI}/Qogir-theme" ]]; then
+    git clone --recursive "${REPO_QOGIR_GTK_THEME}" "${DIR_REPOS_UI}/Qogir-theme" 1>/dev/null --depth 1
 else
-    echo "${DIR_REPOS_UI}/arc-theme already exists"
+    echo "${DIR_REPOS_UI}/Qogir-theme already exists"
 fi
 
-cd "${DIR_REPOS_UI}/arc-theme" || exit 1
-meson setup --reconfigure --prefix=$HOME/.local \
-            -Dvariants=dark build/ \
-            -Dthemes=gtk3,gtk4,gnome-shell \
-            -Dgnome_shell_gresource=true
-meson install -C build/
+cd "${DIR_REPOS_UI}/Qogir-theme" || exit 1
+./install.sh -d "${HOME}/.themes" -t default -c dark -i default --tweaks square
+
+if [[ ! -d "${DIR_REPOS_UI}/Qogir-icon-theme" ]]; then
+    git clone --recursive "${REPO_QOGIR_ICN_THEME}" "${DIR_REPOS_UI}/Qogir-icon-theme" 1>/dev/null --depth 1
+else
+    echo "${DIR_REPOS_UI}/Qogir-icon-theme already exists"
+fi
+cd "${DIR_REPOS_UI}/Qogir-icon-theme" || exit 1
+./install.sh -d "${HOME}/.icons" -t default -c dark
 
 ###############################################################################
 #                               gnome settings                                #
