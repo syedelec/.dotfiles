@@ -75,7 +75,7 @@ pacman_utils=(
     xcb-util-image xcb-util-keysyms tk dos2unix gdu cups help2man repo
     nmap gnu-netcat lsof detox sshfs lzop aspell-en bind-tools ctags
     boost catch2 fmt mbedtls nlohmann-json acpica dtc autoconf-archive
-    gptfdisk bc git-cliff
+    gptfdisk bc git-cliff navi ventoy
 )
 pacman_dev=(
     vim neovim python-pynvim
@@ -113,7 +113,7 @@ yay_tools=(
     google-chrome teams teamviewer sublime-text-4 ticktick
 )
 yay_utils=(
-    bfs dtrx bitwise zoxide navi-bin tio libtree zoom standardnotes-desktop
+    bfs dtrx bitwise zoxide tio libtree zoom standardnotes-desktop
 )
 yay_customization=(
     tela-icon-theme colorpicker
@@ -275,6 +275,15 @@ sudo systemctl enable docker
 
 grep -q docker /etc/group || sudo groupadd docker
 sudo usermod -aG docker ${USER}
+
+###############################################################################
+#                                   sysctl                                    #
+###############################################################################
+
+echo "======= Setup 'SYSCTL' ======="
+
+echo kernel.dmesg_restrict = 0 | sudo tee -a /etc/sysctl.d/10-local.conf >/dev/null
+sudo sysctl -f --quiet
 
 ###############################################################################
 #                               build terminal                                #
