@@ -26,7 +26,7 @@ endif
 nnoremap <silent> <esc><esc> :<c-u>nohlsearch<CR>
 
 " Remap Ctrl-w to close/destroy buffer using vim-sayonara
-noremap <c-w> :Sayonara<cr>
+noremap <nowait> <c-w> :Sayonara<cr>
 
 " Duplicate line
 map <a-d> <Plug>Duplicate
