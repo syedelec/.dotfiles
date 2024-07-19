@@ -75,7 +75,8 @@ pacman_utils=(
     xcb-util-image xcb-util-keysyms tk dos2unix gdu cups help2man repo
     nmap gnu-netcat lsof detox sshfs lzop aspell-en bind-tools ctags
     boost catch2 fmt mbedtls nlohmann-json acpica dtc autoconf-archive
-    gptfdisk bc git-cliff navi ventoy
+    gptfdisk bc git-cliff navi ventoy virt-manager swtpm minisign
+    qemu-user-static qemu-user-static-binfmt
 )
 pacman_dev=(
     vim neovim python-pynvim
@@ -86,7 +87,7 @@ pacman_dev=(
 pacman_tools=(
     docker docker-compose openssl wget curl git ripgrep valgrind mplayer
     fd bat fzf rofi stow tree yay lynx firefox cmus cppcheck shellcheck
-    meld android-tools cargo efitools deluge evince dialog tokei binwalk
+    meld android-tools cargo efitools deluge evince dialog binwalk
     jq texlive-core bash-language-server python-lsp-server git-delta
     clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
     mattermost-desktop whois arp-scan uncrustify sd wireguard-tools
@@ -283,7 +284,7 @@ sudo usermod -aG docker ${USER}
 echo "======= Setup 'SYSCTL' ======="
 
 echo kernel.dmesg_restrict = 0 | sudo tee -a /etc/sysctl.d/10-local.conf >/dev/null
-sudo sysctl -f --quiet
+sudo sysctl --quiet --system
 
 ###############################################################################
 #                               build terminal                                #
