@@ -85,13 +85,14 @@ pacman_dev=(
     rustup
 )
 pacman_tools=(
-    docker docker-compose openssl wget curl git ripgrep valgrind mplayer
+    docker docker-compose docker-buildx openssl wget curl git ripgrep
     fd bat fzf rofi stow tree yay lynx firefox cmus cppcheck shellcheck
     meld android-tools cargo efitools deluge evince dialog binwalk
     jq texlive-core bash-language-server python-lsp-server git-delta
-    clang jdk11-openjdk jre11-openjdk tree-sitter duf nvme-cli mpd mpc
+    clang jre11-openjdk tree-sitter duf nvme-cli mpd mpc fdupes pngquant
     mattermost-desktop whois arp-scan uncrustify sd wireguard-tools
-    telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc fdupes
+    telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc
+    valgrind mplayer
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
