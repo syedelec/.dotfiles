@@ -127,6 +127,9 @@ yay_customization=(
 sudo sed -i 's|^#\(ParallelDownloads.*\)|\1|' /etc/pacman.conf
 sudo sed -i 's|^#\(Color.*\)|\1|' /etc/pacman.conf
 
+echo "======= Enable default session as X11 ======="
+
+sudo sed -i 's|^#\(WaylandEnable.*\)|\1|' /etc/gdm/custom.conf
 
 ###############################################################################
 #                                   install                                   #
