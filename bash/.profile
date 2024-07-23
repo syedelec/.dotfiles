@@ -49,6 +49,7 @@ export BROWSER="$(which firefox || which google-chrome-stable || which opera)"
 
 # set PATH so it includes user's private bin if it exists and remove duplicates
 PATH="${PATH}:${HOME}/bin"
+PATH="${PATH}:${HOME}/.cargo/bin"
 PATH_TMP=$(printf %s "$PATH" |
            awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}' |
            tr -s ':')
