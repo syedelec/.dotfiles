@@ -131,6 +131,10 @@ echo "======= Enable default session as X11 ======="
 
 sudo sed -i 's|^#\(WaylandEnable.*\)|\1|' /etc/gdm/custom.conf
 
+echo "======= Change default shell ======="
+
+sudo chsh -s /bin/bash
+
 ###############################################################################
 #                                   install                                   #
 ###############################################################################
@@ -218,11 +222,12 @@ echo "======= Install dotfiles ======="
 
 if [[ ! -d "${DIR_DOTFILES}" ]]; then
     git clone --recursive "${REPO_DOTFILES}" "${DIR_DOTFILES}" 1>/dev/null
-    cd "${DIR_DOTFILES}" || exit 1
-
-    find * -maxdepth 0 -type d -exec stow --adopt {} \;
-    bat cache --build 1>/dev/null
 fi
+
+cd "${DIR_DOTFILES}"
+
+find * -maxdepth 0 -type d -exec stow --adopt {} \;
+bat cache --build 1>/dev/null
 
 ###############################################################################
 #                                 gnome theme                                 #
@@ -239,7 +244,7 @@ else
     echo "${DIR_REPOS_UI}/Qogir-theme already exists"
 fi
 
-cd "${DIR_REPOS_UI}/Qogir-theme" || exit 1
+cd "${DIR_REPOS_UI}/Qogir-theme"
 ./install.sh -d "${HOME}/.themes" -t default -c dark -i default --tweaks square
 
 if [[ ! -d "${DIR_REPOS_UI}/Qogir-icon-theme" ]]; then
@@ -247,7 +252,7 @@ if [[ ! -d "${DIR_REPOS_UI}/Qogir-icon-theme" ]]; then
 else
     echo "${DIR_REPOS_UI}/Qogir-icon-theme already exists"
 fi
-cd "${DIR_REPOS_UI}/Qogir-icon-theme" || exit 1
+cd "${DIR_REPOS_UI}/Qogir-icon-theme"
 ./install.sh -d "${HOME}/.icons" -t default -c dark
 
 ###############################################################################
@@ -302,7 +307,7 @@ else
     echo "${DIR_REPOS_TOOLS}/tilix already exists"
 fi
 
-cd "${DIR_REPOS_TOOLS}/tilix" || exit 1
+cd "${DIR_REPOS_TOOLS}/tilix"
 dub build --build=release &> /dev/null
 sudo ./install.sh &> /dev/null
 dconf load /com/gexperts/Tilix/ < "${DIR_DOTFILES}/tilix/.config/tilix/tilix.conf"
