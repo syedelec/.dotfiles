@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+trap '
+    trap - INT # restore default INT handler
+    kill -s INT "$$"
+' INT
+
+NB_TEST=20
+NB_UP_TEST=5
+SERVER="37.200.86.22"
+DURATION=120
+PORT=5201
+STREAMS=4
+
+usage() {
+    echo "Usage: $0 [-s iperf-server] [-p iperf-port] [-n nb-tests] [-u upload-nb-tests] [-t single-test-duration] [-st nb-streams]"
+    echo -e "\t-s : iperf3 server domain (default=$SERVER)"
+    echo -e "\t-p : iperf3 server port (default=$PORT)"
+    echo -e "\t-n : Total number of test to perform (default=$NB_TEST)"
+    echo -e "\t-u : Number of upload tests among the total number (default=$NB_UP_TEST)"
+    echo -e "\t-t : Duration of a single test (default=$DURATION)"
+    echo -e "\t-st : Number of parallel streams (default=$STREAMS)"
+    echo -e "\t-h : This help menu"
+    exit 1
+}
+
+
+# =================================================================================
+# Default configuration
+# =================================================================================
+
+
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -h)
+            usage
+            shift
+            ;;
+        -n)
+            NB_TEST="$2"
+            shift 2
+            ;;
+        -u)
+            NB_UP_TEST="$2"
+            shift 2
+            ;;
+        -s)
+            SERVER="$2"
+            shift 2
+            ;;
+        -p)
+            PORT="$2"
+            shift 2
+            ;;
+        -t)
+            DURATION="$2"
+            shift 2
+            ;;
+        -st)
+            STREAMS="$2"
+            shift 2
+            ;;
+        --) # End of all options
+            shift
+            break
+            ;;
+        -*|--*) # Unknown option
+            echo "Unknown option: $1"
+            usage
+            ;;
+        *)  # No more options
+            break
+            ;;
+    esac
+done
+
+if (( NB_UP_TEST > NB_TEST )); then
+    echo "Number of upload test cannot be greater than number of total tests."
+    usage
+    exit 1
+fi
+
+
+echo "*** Starting Iperf loop testing."
+echo "Number of tests : $NB_TEST"
+echo "Number of upload tests : $NB_UP_TEST"
+echo "Iperf3 server : $SERVER"
+echo "Iperf3 server port : $PORT"
+echo "Duration of a single test : $DURATION"
+echo "Number of parallel streams : $STREAMS"
+echo "***"
+
+for (( i = 0; i < $NB_TEST ; i++ )); do
+
+    iperfCmd="iperf3 -4 -c $SERVER -p $PORT -P $STREAMS -t $DURATION -J"
+    nameFolder="UP"
+    # if [ $i -gt $NB_UP_TEST ]; then
+    if (( i >= NB_UP_TEST )); then
+        iperfCmd="$iperfCmd -R"
+        nameFolder="DL"
+    fi
+
+    nameFolder="$nameFolder-$i"
+
+    startTime=`date '+%Y_%m_%d_%H%M%S'`
+    fileName='iperf_'$startTime'.json'
+
+    if [ ! -d $nameFolder ]; then
+        mkdir -p $nameFolder;
+    fi
+
+    cwd=$(pwd)
+    fileLog="$cwd/$nameFolder/$fileName"
+    iperfCmd="$iperfCmd --logfile $fileLog"
+
+    echo "*** TEST N°$i"
+    echo "*** Command : $iperfCmd"
+    echo "*** Starting time : `date`"
+    echo "*** Output folder : $nameFolder"
+    echo "$iperfCmd" > "$cwd/$nameFolder/command.txt"
+    eval "$iperfCmd"
+    echo "*** Finish time : `date`"
+    echo "---------------------------------------------"
+    sleep 2
+    wait
+done
+wait
+echo "Done."
+exit 0
