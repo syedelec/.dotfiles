@@ -36,6 +36,7 @@ __pycache__
 # files
 TODO
 *.old
+*.log
 
 # mpd
 mpd/.config/mpd/*
