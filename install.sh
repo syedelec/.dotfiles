@@ -89,10 +89,10 @@ pacman_tools=(
     fd bat fzf rofi stow tree yay lynx firefox cmus cppcheck shellcheck
     meld android-tools cargo efitools deluge evince dialog binwalk
     jq texlive-core bash-language-server python-lsp-server git-delta
-    clang jre11-openjdk tree-sitter duf nvme-cli mpd mpc fdupes pngquant
+    clang jre11-openjdk tree-sitter tree-sitter-cli duf nvme-cli mpd
     mattermost-desktop whois arp-scan uncrustify sd wireguard-tools
     telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc
-    valgrind mplayer
+    valgrind mplayer mpc fdupes pngquant
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
