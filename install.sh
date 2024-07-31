@@ -281,10 +281,11 @@ echo "======= Setup 'SYSTEMD' ======="
 
 sudo systemctl disable bluetooth
 sudo systemctl disable cups
-sudo systemctl enable docker
+sudo systemctl enable --now docker
 
 grep -q docker /etc/group || sudo groupadd docker
 sudo usermod -aG docker ${USER}
+sudo usermod -aG uucp,tty ${USER}
 
 ###############################################################################
 #                                   sysctl                                    #
