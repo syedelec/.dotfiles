@@ -6,6 +6,9 @@ echo <public_ip>
 # find local IP address
 echo <local_ip>
 
+# find local IP addresses in local network
+sudo nmap -sn <local_ip>
+
 # find location base on IP
 curl -s ipinfo.io/<public_ip> | jq .
 
