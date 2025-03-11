@@ -76,7 +76,7 @@ pacman_utils=(
     nmap gnu-netcat lsof detox sshfs lzop aspell-en bind-tools ctags
     boost catch2 fmt mbedtls nlohmann-json acpica dtc autoconf-archive
     gptfdisk bc git-cliff navi ventoy virt-manager swtpm minisign
-    qemu-user-static qemu-user-static-binfmt
+    qemu-user-static qemu-user-static-binfmt xorg-apps
 )
 pacman_dev=(
     vim neovim python-pynvim
@@ -92,7 +92,8 @@ pacman_tools=(
     clang jre11-openjdk tree-sitter tree-sitter-cli duf nvme-cli mpd
     mattermost-desktop whois arp-scan uncrustify sd wireguard-tools
     telegram-desktop tcpdump wireshark-cli speedtest-cli keepassxc
-    valgrind mplayer mpc fdupes pngquant
+    valgrind mplayer mpc fdupes pngquant python-sphinx-autobuild
+    python-myst-parser perl-io-socket-ssl perl-authen-sasl
 )
 pacman_customization=(
     arc-gtk-theme bash-completion feh neofetch gnome-tweaks
