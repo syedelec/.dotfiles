@@ -20,8 +20,9 @@ fi
 alias ll='ls -Al --group-directories-first'
 alias lls='ls -hAl --group-directories-first'
 
-alias mount='mount | column -t'
+# alias mount='mount | column -t'
 alias mkdir='mkdir -pv'
+alias ussh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 alias ping='ping -c 3'
 alias lsblka='lsblk -p -o NAME,FSTYPE,LABEL,PARTLABEL,UUID,PARTUUID,FSSIZE,FSAVAIL,FSUSE%,MOUNTPOINTS'
 alias lsblk='lsblk -p -o NAME,FSTYPE,PARTLABEL,FSSIZE,FSAVAIL,FSUSE%,MOUNTPOINTS'
