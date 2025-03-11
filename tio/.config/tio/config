@@ -17,7 +17,7 @@ color = bold
 rs-485 = false
 alert = none
 script-run = always
-prefix-ctrl-key = a
+prefix-ctrl-key = q
 no-reconnect = false
 log = false
 
