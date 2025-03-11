@@ -17,6 +17,10 @@ mount_img() {
     __check_files_exist__ "${file}" || return 1
 
     fs="$(blkid -o value -s TYPE ${file})"
+    if [ -z "${fs}" ]; then
+        echo "fatal: unknown filesystem"
+        return 1
+    fi
 
     mkdir "${dir}" &> /dev/null
     sudo mount -t "${fs}" -o loop "${file}" "${dir}" || {
