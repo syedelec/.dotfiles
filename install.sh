@@ -269,6 +269,10 @@ gsettings set org.gnome.desktop.background picture-uri file://${BACKGROUND_IMAGE
 gsettings set org.gnome.desktop.background picture-uri-dark file://${BACKGROUND_IMAGE}
 gsettings set org.gnome.desktop.screensaver picture-uri file://${SCREENSAVER_IMAGE}
 
+# activate night light mode with temperature color
+gsettings get org.gnome.settings-daemon.plugins.color night-light-temperature
+gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 5000
+
 sudo dconf update
 
 rm -f ${TEMP_GNOME_CONFIG}
