@@ -145,7 +145,7 @@ __fzf_commit() {
         --header "<C-P> to toggle preview | <C-S> to print message"         \
         --bind "ctrl-p:toggle-preview"                                      \
         --bind "ctrl-s:execute(git show -s --format=%s%b {+1})+abort"       \
-        --bind "enter:execute(echo {+1})+abort"                             \
+        --bind "enter:become(echo {+1})+accept"                              \
         --preview="git show-name {+1}; git show --pretty='' {+1} | delta"   \
     ))
 
