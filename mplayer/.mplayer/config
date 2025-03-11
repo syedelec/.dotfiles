@@ -34,5 +34,8 @@ subfont-outline=2.0
 # Set autoscale coefficient. (default: 5)
 subfont-text-scale=4.4
 
-ass=true
+ass=yes
+
+alang=eng
+slang=fre
 
