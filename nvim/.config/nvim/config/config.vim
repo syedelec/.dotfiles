@@ -150,7 +150,6 @@ set cursorcolumn
 " avoid putting crusor beggining of line
 set nostartofline
 
-set termencoding=utf-8
 set encoding=utf-8
 set showtabline=2                           " always display tabline (not needed for vim-airline)
 set laststatus=2                            " always display status line
